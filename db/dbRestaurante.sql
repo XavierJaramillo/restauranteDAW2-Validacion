@@ -71,7 +71,7 @@ INSERT INTO `espacio` (`id_espacio`, `tipo_espacio`, `capacidad_mesas`) VALUES
 
 CREATE TABLE `horario` (
   `id_horario` int(11) NOT NULL,
-  `dia_entrada` datetime NOT NULL,
+  `hora_entrada` datetime NOT NULL,
   `hora_salida` datetime NOT NULL,
   `id_mesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
