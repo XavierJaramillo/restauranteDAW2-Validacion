@@ -11,8 +11,17 @@ class MesaDAO {
         $this->pdo=$pdo;
     }
 
+    public function getPDO() {
+        return $this->pdo;
+    }
+
     public function getMesas() {
-        $tipoEspacio = $_REQUEST['espacio'];
+        $con = 0;
+        if(isset($_REQUEST['espacio'])){
+            $tipoEspacio=$_REQUEST['espacio'];
+        } else {
+            $tipoEspacio="Libre";
+        }
         $query = "SELECT * FROM mesas INNER JOIN espacio ON mesas.id_espacio = espacio.id_espacio LEFT JOIN camareros
         ON mesas.id_camarero = camareros.id_camarero WHERE tipo_espacio = ?;";
         $sentencia = $this->pdo->prepare($query);
@@ -24,8 +33,10 @@ class MesaDAO {
             // COMPROBAMOS EL ESTADO DE LA MESA
             $idMesa = $mesa['id_mesa'];
             $estado = $mesa['disp_mesa'];
-
-            echo "<tr>";
+            if($con%4==0){
+                echo "<tr>";
+            }
+            $con++;
             // IMPRIMIMOS LAS MESAS SEGUN SU ESTADO
             if($estado == "Libre") {
                 echo "<td>";
@@ -46,13 +57,37 @@ class MesaDAO {
                 echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
                 echo "</td>";
             }
-            echo "</tr>";
-            
+            if($con%4==0){
+                echo "</tr>";
+            }
         }
     }
 
-    public function getDatosForm() {
-        $id_mesa = $_REQUEST['id_mesa'];
+    public function update() {
+        try {
+            $this->pdo->beginTransaction();
+            $id_mesa = $_REQUEST['id_mesa'];
+            $disp_mesa = $_REQUEST['disp_mesa'];
+            $capacidad_mesa = $_REQUEST['capacidad_mesa'];
+            $espacio = $_REQUEST['tipo_espacio'];
+
+            $url = "../view/zonaRestaurante.php?espacio={$espacio}";
+
+
+            $query="UPDATE mesas SET mesas.capacidad_mesa = ?, mesas.disp_mesa = ? WHERE id_mesa = ?;";
+            $sentencia=$this->pdo->prepare($query);
+            $sentencia->bindParam(1,$capacidad_mesa);
+            $sentencia->bindParam(2,$disp_mesa);
+            $sentencia->bindParam(3,$id_mesa);
+            $sentencia->execute();
+            
+            $this->pdo->commit();
+            header('Location: '.$url);
+
+        } catch (Exception $e) {
+            $this->pdo->rollBack();
+            echo $e;
+        }
     }
 }
 //FernandezVico

@@ -10,7 +10,11 @@ echo "<a href='../view/zonaRestaurante.php?espacio=Comedor'>HOLA</a>";
 $mesaDAO = new MesaDAO();
 echo "<table id='table'>";
 echo $mesaDAO->getMesas();
-echo "</table>"
+echo "</table>";
+
+if(isset($_REQUEST['id_mesa'])) {
+    echo $mesaDAO->update();
+}
 //FernandezVives
 
 ?>
