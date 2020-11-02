@@ -41,19 +41,22 @@ class MesaDAO {
             if($estado == "Libre") {
                 echo "<td>";
                 echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesa.png'></img></a>";
-                echo "<p>ID: $idMesa</p>";
+                echo "<p>Nº mesa: $idMesa</p>";
                 echo "<p>Camarero: {$mesa['nombre_camarero']}</p>";
                 echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
                 echo "</td>";
             } else if ($estado == "Ocupada") {
                 echo "<td>";
                 echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesaOcupada.png'></img></a>";
+                echo "<p>Nº mesa: $idMesa</p>";
+                echo "<p>Comensal/es: {$mesa['capacidad_mesa']}</p>";
                 echo "<p>Ocupada!</p>";
                 echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
                 echo "</td>";
             } else {
                 echo "<td>";
                 echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesaReparacion.png'></img></a>";
+                echo "<p>Nº mesa: $idMesa</p>";
                 echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
                 echo "</td>";
             }

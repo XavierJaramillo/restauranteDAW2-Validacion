@@ -7,23 +7,16 @@
 <script src="../js/code.js"></script>
 </head>
 <body>
+<p class="texto">Iniciar</p>
+<div class="Registro">
     <div>
         <form action="../controller/loginController.php" method="POST">
             <p>
             Nombre de usuario: <input type="text" name="user" id="user" ><br>
             Contraseña: <input type="password" name="pass" id="pass" ><br>
-            <input type="submit" value="Iniciar sesisón">
+            <input type="submit" value="Iniciar sesión">
             </p>
         </form>
     </div>
 </body>
 </html>
-
-<?php
-//MartinezFalconi
-
-//JaramilloVives
-
-//FernandezVico
-
-?>

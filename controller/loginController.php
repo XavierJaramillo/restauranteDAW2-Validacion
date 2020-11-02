@@ -9,7 +9,7 @@ if (isset($_POST['user'])) {
     //establece conexion con base de datos y ejecura la query, despues de comprobar la info en camareroDAO.php
     $camareroDAO = new camareroDAO();
     if($camareroDAO->login($camarero)){
-        header('Location:../view/zonaRestaurante.php');
+        header('Location:../view/zonaRestaurante.php?espacio=Terraza');
     }else {
         header('Location:../view/login.php');
     }
