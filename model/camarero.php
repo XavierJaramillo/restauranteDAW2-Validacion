@@ -1,7 +1,4 @@
 <?php
-//MartinezFalconi
-
-//JaramilloVives
 class Camarero {
     //ATRIBUTOS
     private $id_camarero;
@@ -35,6 +32,5 @@ class Camarero {
         $this->pass_camarero = $pass_camarero;
     }
 }
-//FernandezVico
 
 ?>

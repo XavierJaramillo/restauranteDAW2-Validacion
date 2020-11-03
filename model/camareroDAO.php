@@ -1,7 +1,4 @@
 <?php
-//MartinezFalconi
-
-//JaramilloVives
 class camareroDAO {
     private $pdo;
 
@@ -30,6 +27,5 @@ class camareroDAO {
         }
     }
 }
-//FernandezVico
 
 ?>

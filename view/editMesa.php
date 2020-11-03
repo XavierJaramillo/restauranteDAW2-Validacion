@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../js/code.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
     <title>Editar mesa</title>
 </head>
 <body>
+    <a class="atras" href="./zonaRestaurante.php">Atrás</a>
     <?php
-        // require_once '../controller/session.php';
+        require_once '../controller/sessionController.php';
         include_once '../model/mesaDAO.php';
         $mDAO = new MesaDAO();
         $pdo = $mDAO->getPDO();
@@ -21,7 +23,7 @@
         $mesa = $sentencia->fetch(PDO::FETCH_ASSOC);
         $pdo->commit();
     ?>
-    <div>
+    <div class="editar">
         <form action="zonaRestaurante.php" method="POST" onsubmit="return validacionCapacidad()">
         <input type="text" id="id_mesa" name="id_mesa" style="display:none" value="<?php echo $mesa['id_mesa'];?>">
         
@@ -59,7 +61,7 @@
         <label for="capacidad_mesa">Capacidad actual:</label><br>
         <input type="text" id="capacidad_mesa" name="capacidad_mesa" value="<?php echo $mesa['capacidad_mesa'];?>"><br>
         
-        <input type="submit" value="Update">
+        <input class="edit" type="submit" value="Update">
         <p id="msg"></p>
         </form>
     </div>

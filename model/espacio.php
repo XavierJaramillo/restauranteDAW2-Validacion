@@ -1,7 +1,4 @@
 <?php
-//MartinezFalconi
-
-//JaramilloVives
 class Espacio {
     //ATRIBUTOS
     private $id_espacio;
@@ -35,6 +32,5 @@ class Espacio {
         $this->capacidad_mesas = $capacidad_mesas;
     }
 }
-//FernandezVico
 
 ?>

@@ -1,7 +1,4 @@
 <?php
-//MartinezFalconi
-
-//JaramilloVives
 require_once 'mesa.php';
 class MesaDAO {
     private $pdo;
@@ -16,12 +13,15 @@ class MesaDAO {
     }
 
     public function getMesas() {
+        $nombre_camarero = $_SESSION['camarero']->getNombre_camarero();
         $con = 0;
+
         if(isset($_REQUEST['espacio'])){
             $tipoEspacio=$_REQUEST['espacio'];
         } else {
             $tipoEspacio="Libre";
         }
+
         $query = "SELECT * FROM mesas INNER JOIN espacio ON mesas.id_espacio = espacio.id_espacio LEFT JOIN camareros
         ON mesas.id_camarero = camareros.id_camarero WHERE tipo_espacio = ?;";
         $sentencia = $this->pdo->prepare($query);
@@ -49,6 +49,7 @@ class MesaDAO {
                 echo "<td>";
                 echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesaOcupada.png'></img></a>";
                 echo "<p>Nº mesa: $idMesa</p>";
+                echo "<p>Camarero asignado: {$mesa['nombre_camarero']}</p>";
                 echo "<p>Comensal/es: {$mesa['capacidad_mesa']}</p>";
                 echo "<p>Ocupada!</p>";
                 echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
@@ -68,7 +69,10 @@ class MesaDAO {
 
     public function updateEntrada() {
         try {
+            include '../controller/sessionController.php';
+            include './camarero.php';
             $this->pdo->beginTransaction();
+            $id_camarero = $_SESSION['camarero']->getId_camarero();
             $id_mesa = $_REQUEST['id_mesa'];
             $disp_mesa = $_REQUEST['disp_mesa'];
             $capacidad_mesa = $_REQUEST['capacidad_mesa'];
@@ -76,11 +80,12 @@ class MesaDAO {
 
             $url = "../view/zonaRestaurante.php?espacio={$espacio}";
 
-            $query="UPDATE mesas SET mesas.capacidad_mesa = ?, mesas.disp_mesa = ? WHERE id_mesa = ?;";
+            $query="UPDATE mesas SET mesas.capacidad_mesa = ?, mesas.id_camarero = ?, mesas.disp_mesa = ? WHERE id_mesa = ?;";
             $sentencia=$this->pdo->prepare($query);
             $sentencia->bindParam(1,$capacidad_mesa);
-            $sentencia->bindParam(2,$disp_mesa);
-            $sentencia->bindParam(3,$id_mesa);
+            $sentencia->bindParam(2,$id_camarero);
+            $sentencia->bindParam(3,$disp_mesa);
+            $sentencia->bindParam(4,$id_mesa);
             $sentencia->execute();
 
             $query = "INSERT INTO horario (hora_entrada, id_mesa) VALUES (NOW(), ?);";
@@ -108,7 +113,7 @@ class MesaDAO {
             
             $url = "../view/zonaRestaurante.php?espacio={$espacio}";
             
-            $query="UPDATE mesas SET mesas.capacidad_mesa = ?, mesas.disp_mesa = ? WHERE id_mesa = ?;";
+            $query="UPDATE mesas SET mesas.capacidad_mesa = ?, mesas.id_camarero = NULL, mesas.disp_mesa = ? WHERE id_mesa = ?;";
             $sentencia=$this->pdo->prepare($query);
             $sentencia->bindParam(1,$capacidad_mesa);
             $sentencia->bindParam(2,$disp_mesa);
@@ -179,6 +184,5 @@ class MesaDAO {
         }
     } 
 }
-//FernandezVico
 
 ?>

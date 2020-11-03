@@ -1,7 +1,4 @@
 <?php
-//MartinezFalconi
-
-//JaramilloVives
 class Mesa {
     //ATRIBUTOS
     private $id_mesa;
@@ -59,6 +56,5 @@ class Mesa {
         $this->id_espacio = $id_espacio;
     }
 }
-//FernandezVico
 
 ?>

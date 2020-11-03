@@ -1,7 +1,4 @@
 <?php
-//MartinezFalconi
-
-//JaramilloVives
 class Horario {
     //ATRIBUTOS
     private $id_horario;
@@ -43,6 +40,5 @@ class Horario {
         $this->id_mesa = $id_mesa;
     }
 }
-//FernandezVico
 
 ?>
