@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `camareros` (
   `id_camarero` int(11) NOT NULL,
   `nombre_camarero` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
-  `pass_camarero` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+  `pass_camarero` varchar(55) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -38,9 +38,9 @@ CREATE TABLE `camareros` (
 --
 
 INSERT INTO `camareros` (`id_camarero`, `nombre_camarero`, `pass_camarero`) VALUES
-(2, 'Xavier', 'jaramillo'),
-(3, 'Sergio', 'sergio123'),
-(4, 'Judit', 'fernandez');
+(2, 'Xavier', '81dc9bdb52d04dc20036dbd8313ed055'),
+(3, 'Sergio', '81dc9bdb52d04dc20036dbd8313ed055'),
+(4, 'Judit', '81dc9bdb52d04dc20036dbd8313ed055');
 
 -- --------------------------------------------------------
 
@@ -71,7 +71,7 @@ INSERT INTO `espacio` (`id_espacio`, `tipo_espacio`, `capacidad_mesas`) VALUES
 
 CREATE TABLE `horario` (
   `id_horario` int(11) NOT NULL,
-  `dia_entrada` datetime NOT NULL,
+  `hora_entrada` datetime NOT NULL,
   `hora_salida` datetime NOT NULL,
   `id_mesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
