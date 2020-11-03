@@ -66,7 +66,7 @@ class MesaDAO {
         }
     }
 
-    public function update() {
+    public function updateEntrada() {
         try {
             $this->pdo->beginTransaction();
             $id_mesa = $_REQUEST['id_mesa'];
@@ -76,7 +76,38 @@ class MesaDAO {
 
             $url = "../view/zonaRestaurante.php?espacio={$espacio}";
 
+            $query="UPDATE mesas SET mesas.capacidad_mesa = ?, mesas.disp_mesa = ? WHERE id_mesa = ?;";
+            $sentencia=$this->pdo->prepare($query);
+            $sentencia->bindParam(1,$capacidad_mesa);
+            $sentencia->bindParam(2,$disp_mesa);
+            $sentencia->bindParam(3,$id_mesa);
+            $sentencia->execute();
 
+            $query = "INSERT INTO horario (hora_entrada, id_mesa) VALUES (NOW(), ?);";
+            $sentencia=$this->pdo->prepare($query);
+            $sentencia->bindParam(1,$id_mesa);
+            echo $query;
+            $sentencia->execute();
+            
+            $this->pdo->commit();
+            header('Location: '.$url);
+            
+        } catch (Exception $e) {
+            $this->pdo->rollBack();
+            echo $e;
+        }
+    }
+    
+    public function updateSalida() {
+        try {
+            $this->pdo->beginTransaction();
+            $id_mesa = $_REQUEST['id_mesa'];
+            $disp_mesa = $_REQUEST['disp_mesa'];
+            $capacidad_mesa = $_REQUEST['capacidad_mesa'];
+            $espacio = $_REQUEST['tipo_espacio'];
+            
+            $url = "../view/zonaRestaurante.php?espacio={$espacio}";
+            
             $query="UPDATE mesas SET mesas.capacidad_mesa = ?, mesas.disp_mesa = ? WHERE id_mesa = ?;";
             $sentencia=$this->pdo->prepare($query);
             $sentencia->bindParam(1,$capacidad_mesa);
@@ -84,37 +115,69 @@ class MesaDAO {
             $sentencia->bindParam(3,$id_mesa);
             $sentencia->execute();
             
-            $this->pdo->commit();
-            header('Location: '.$url);
-
-        } catch (Exception $e) {
-            $this->pdo->rollBack();
-            echo $e;
-        }
-    }
-
-    public function horario(){
-        try {
-            $id_mesa = $_REQUEST['id_mesa'];
-            $this->pdo->beginTransaction();
-
-            $query = "INSERT INTO horario (hora_entrada, id_mesa) VALUES (NOW(), ?)";
-            $sentencia=$this->pdo->prepare($query);
-            $sentencia->bindParam(1,$id_mesa);
-            $sentencia->execute();
-
             $query = "UPDATE horario SET hora_salida = NOW() WHERE id_mesa = ? AND hora_entrada = (SELECT MAX(hora_entrada) FROM horario)";
             $sentencia=$this->pdo->prepare($query);
             $sentencia->bindParam(1,$id_mesa);
             $sentencia->execute();
 
             $this->pdo->commit();
+            header('Location: '.$url);
+            
         } catch (Exception $e) {
             $this->pdo->rollBack();
             echo $e;
         }
-
     }
+    
+    public function viewMesas() {
+        try {
+            $cont = 0;
+            $query = "SELECT id_mesa FROM mesas";
+            $sentencia=$this->pdo->prepare($query);
+            $sentencia->execute();
+            $lista_mesas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($lista_mesas as $mesa) {
+                if ($cont%10==0) {
+                    echo "<tr>";
+                }
+                    $cont++;
+                    echo "<td><a href='./regMesa.php?id_mesa={$mesa['id_mesa']}'>Mesa Nº ".$mesa['id_mesa']."</a></td>";
+                if ($cont%10==0) {
+                    echo "</tr>";
+                }
+            }
+
+        } catch (Exception $e) {
+
+            echo $e;
+        
+        }
+    }
+
+    public function viewHistorical() {
+        try {
+            $this->pdo->beginTransaction();
+            $id_mesa = $_REQUEST['id_mesa'];
+
+            $query = "SELECT hora_entrada, hora_salida FROM horario WHERE id_mesa = ?";
+            $sentencia=$this->pdo->prepare($query);
+            $sentencia->bindParam(1,$id_mesa);
+            $sentencia->execute();
+            $lista_horas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($lista_horas as $hora) {
+                    echo "<tr>";
+                    echo "<td>Hora entrada: {$hora['hora_entrada']}</td>";
+                    echo "<td>Hora salida: {$hora['hora_salida']}</td>";
+                    echo "</tr>";
+            }
+
+            $this->pdo->commit();
+        } catch (Exception $e) {
+            $this->pdo->rollBack();
+            echo $e;
+        }
+    } 
 }
 //FernandezVico
 

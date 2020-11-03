@@ -23,9 +23,16 @@
     echo "</table>";
 
     if(isset($_REQUEST['id_mesa'])) {
-        echo $mesaDAO->update();
+        if($_REQUEST['disp_mesa'] == "Libre") {
+            $mesaDAO->updateSalida();
+        } else if ($_REQUEST['disp_mesa'] == "Ocupada") {
+            $mesaDAO->updateEntrada();
+        } else {
+            // TODO
+        }
     }
     ?> 
+    <h1><a href="./regMesaHorarios.php">Historico</a></h1>
 
     </tbody>
     </table>
