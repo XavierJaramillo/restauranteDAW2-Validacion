@@ -92,6 +92,29 @@ class MesaDAO {
             echo $e;
         }
     }
+
+    public function horario(){
+        try {
+            $id_mesa = $_REQUEST['id_mesa'];
+            $this->pdo->beginTransaction();
+
+            $query = "INSERT INTO horario (hora_entrada, id_mesa) VALUES (NOW(), ?)";
+            $sentencia=$this->pdo->prepare($query);
+            $sentencia->bindParam(1,$id_mesa);
+            $sentencia->execute();
+
+            $query = "UPDATE horario SET hora_salida = NOW() WHERE id_mesa = ? AND hora_entrada = (SELECT MAX(hora_entrada) FROM horario)";
+            $sentencia=$this->pdo->prepare($query);
+            $sentencia->bindParam(1,$id_mesa);
+            $sentencia->execute();
+
+            $this->pdo->commit();
+        } catch (Exception $e) {
+            $this->pdo->rollBack();
+            echo $e;
+        }
+
+    }
 }
 //FernandezVico
 
