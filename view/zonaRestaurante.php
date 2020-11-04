@@ -17,7 +17,6 @@
             <a href='../view/zonaRestaurante.php?espacio=VIPs'>VIPs</a>
             <a href='../view/zonaRestaurante.php?espacio=Terraza'>Terraza</a>
             <a href='../view/zonaRestaurante.php?espacio=Comedor'>Comedor</a>
-            <a href="./regMesaHorarios.php">Historico</a>
             
         </div>
         
@@ -26,7 +25,7 @@
         include_once '../model/mesaDAO.php';
 
         $mesaDAO = new MesaDAO();
-        echo "<table id='table'>";
+        echo "<table id='table' style='margin-left: auto;margin-right: auto;border-spacing: 55px'>";
         echo "<tbody>";
         echo $mesaDAO->getMesas();
         echo "</table>";
