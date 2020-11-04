@@ -10,12 +10,11 @@
     <body>
     <p class="Inici">Iniciar</p>
     <div class="Registro">
-        <div>
             <form action="../controller/loginController.php" method="POST">
                 <p>Nombre de usuario: <input type="text" name="user" id="user" ></p>
                 <p>Contraseña: <input type="password" name="pass" id="pass" ></p>
                 <input type="submit" value="Iniciar sesión">
             </form>
-        </div>
+    </div>
     </body>
 </html>

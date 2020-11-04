@@ -8,7 +8,7 @@
     <title>Editar mesa</title>
 </head>
 <body>
-    <a class="atras" href="./zonaRestaurante.php">Atrás</a>
+    <a class="atras" href="./zonaRestaurante.php?espacio=Terraza">Atrás</a>
     <?php
         require_once '../controller/sessionController.php';
         include_once '../model/mesaDAO.php';

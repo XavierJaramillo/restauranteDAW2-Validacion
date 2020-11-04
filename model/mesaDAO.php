@@ -40,22 +40,27 @@ class MesaDAO {
             // IMPRIMIMOS LAS MESAS SEGUN SU ESTADO
             if($estado == "Libre") {
                 echo "<td>";
+                echo "<p class='pHistorico'><a class='aHistorico' href='./regMesaHorarios.php'><img src='../img/history.png' alt='historial'></a></p>";
                 echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesa.png'></img></a>";
                 echo "<p>Nº mesa: $idMesa</p>";
-                echo "<p>Camarero: {$mesa['nombre_camarero']}</p>";
+                echo "<p>Camarero asignado: {$mesa['nombre_camarero']}</p>";
+                echo "<p>Comensal/es: 0</p>";
+                echo "<p>Libre</p>";
                 echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
                 echo "</td>";
             } else if ($estado == "Ocupada") {
                 echo "<td>";
+                echo "<p class='pHistorico'><a class='aHistorico' href='./regMesaHorarios.php'><img src='../img/history.png' alt='historial'></a></p>";
                 echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesaOcupada.png'></img></a>";
                 echo "<p>Nº mesa: $idMesa</p>";
                 echo "<p>Camarero asignado: {$mesa['nombre_camarero']}</p>";
                 echo "<p>Comensal/es: {$mesa['capacidad_mesa']}</p>";
-                echo "<p>Ocupada!</p>";
+                echo "<p>Ocupada</p>";
                 echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
                 echo "</td>";
             } else {
                 echo "<td>";
+                echo "<p class='pHistorico'><a class='aHistorico' href='./regMesaHorarios.php'><img src='../img/history.png' alt='historial'></a></p>";
                 echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesaReparacion.png'></img></a>";
                 echo "<p>Nº mesa: $idMesa</p>";
                 echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
