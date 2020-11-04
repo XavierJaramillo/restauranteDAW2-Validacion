@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* NAV */
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.849);
+    color: white;
+}
+
+.nav a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav a:hover {
+    color: yellow;
+}
+
+
+/* SUB NAV */
+
+.subnav {
+    background-color: rgba(0, 0, 0, 0.295);
+    display: flex;
+    justify-content: space-around;
+}
+
+.subnav a {
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+}
+
+.subnav a:hover {
+    color: black;
+    background-color: rgba(0, 0, 0, 0.295);
+}
+
+
+/* TABLE */
+
+.table {
+    max-width: 50%;
+}
+
+#table img {
+    width: 50%;
+    height: auto;
+}
