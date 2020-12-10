@@ -19,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `restaurante_bd`
+-- Base de datos: `2021_jaramilloxavi`
 --
-CREATE DATABASE restaurante_bd;
-USE restaurante_bd;
+CREATE DATABASE 2021_jaramilloxavi;
+USE 2021_jaramilloxavi;
 -- --------------------------------------------------------
 
 --

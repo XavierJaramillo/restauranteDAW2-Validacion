@@ -25,6 +25,7 @@ class camareroDAO {
         if(!empty($numRow) && $numRow==1){
             $camarero->setId_camarero($result['id_camarero']);
             $camarero->setIdMantenimiento($result['idMantenimiento']);
+            $camarero->setRol($result['rol']);
             session_start();
             $_SESSION['camarero']=$camarero;
             return true;

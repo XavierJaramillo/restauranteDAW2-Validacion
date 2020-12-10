@@ -45,20 +45,31 @@ body {
 
 .subnav {
     background-color: rgb(77, 77, 77, 0.6);
+}
+
+.subnav ul {
+    margin: 0;
+    padding: 15px;
     display: flex;
-    justify-content: space-evenly;
+    list-style-type: none;
+}
+
+.subnav li {
+    margin: auto;
 }
 
 .subnav a {
-    font-size: large;
-    font-weight: bold;
     text-decoration: none;
     color: white;
-    padding: 15px 125px;
+    font-size: 20px;
 }
 
 .subnav a:hover {
     background-color: rgba(0, 0, 0, 0.295);
+}
+
+.filtro {
+    margin: 0;
 }
 
 
@@ -155,7 +166,7 @@ body {
     background-color: transparent;
 }
 
-.editar form {
+.reservaForm {
     text-align: center;
     color: white;
     background-color: rgba(0, 0, 0, 0.7);
@@ -164,7 +175,8 @@ body {
     padding: 25px;
 }
 
-form input[type="text"] {
+.reservaForm input[type="text"],
+.reservaForm input[type="date"] {
     border: 2px solid #ffffff;
     border-radius: 8px;
     background-color: #ffffff;
@@ -172,7 +184,7 @@ form input[type="text"] {
     margin-bottom: 15px;
 }
 
-input[type="submit"] {
+.reservaForm input[type="submit"] {
     width: 80%;
     margin: 0;
     margin-top: 15px;

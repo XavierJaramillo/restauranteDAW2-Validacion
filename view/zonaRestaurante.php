@@ -16,13 +16,20 @@
 
         <div class="subnav">
             <!-- SUBNAV CON LINK A LOS DIFERENTES ESPACIOS -->
-            <a href='../view/zonaRestaurante.php?espacio=VIPs'>VIPs</a>
-            <a href='../view/zonaRestaurante.php?espacio=Terraza'>Terraza</a>
-            <a href='../view/zonaRestaurante.php?espacio=Comedor'>Comedor</a>
-            
+            <ul>
+                <li><a href='../view/zonaRestaurante.php?espacio=VIPs'>VIPs</a></li>
+                <li><a href='../view/zonaRestaurante.php?espacio=Terraza'>Terraza</a></li>
+                <li><a href='../view/zonaRestaurante.php?espacio=Comedor'>Comedor</a></li>
+                <li>
+                    <form class="filtro" action="./zonaRestaurante.php" method="get">
+                        <label>Filtro fecha:</label><input type="date" name="filtro_fecha" id="filtro_fecha">
+
+                        <input type="submit" value="Enviar">
+                    </form>
+                </li>
+            </ul>
         </div>
         
-            
         <?php
         include_once '../model/mesaDAO.php';
 
@@ -36,12 +43,8 @@
         // CONTROLAMOS QUE VARIABLES ESTAN INICIALIZADAS Y SEGÚN ESTO, LLAMAMOS AL METODO CORRESPONDIENTE
         // EL CUAL CONTROLA EL CONTENIDO DE LA TABLA
         if(isset($_REQUEST['id_mesa'])) {
-            if($_REQUEST['disp_mesa'] == "Libre") {
-                $mesaDAO->updateSalida();
-            } else if ($_REQUEST['disp_mesa'] == "Ocupada") {
-                $mesaDAO->updateEntrada();
-            } else {
-                $mesaDAO->fixMesa();
+            if($_REQUEST['disp_mesa'] == "Disponible") {
+                $mesaDAO->crearReserva();
             }
         }
         ?>
