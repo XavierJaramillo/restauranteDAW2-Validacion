@@ -10,7 +10,7 @@ if (isset($_POST['user'])) {
     // LLAMAMOS AL METODO QUE ENCONTRAMOS EN CAMARERODAO, PARA VALIDAR EL CAMARERO
     if($camareroDAO->login($camarero)){
         // EN CASO DE TRUE NOS REDIRIGE A LA PAGINA PRINCIPAL
-        header('Location:../view/zonaRestaurante.php?espacio=Terraza&filtro_fecha=');
+        header('Location:../view/zonaRestaurante.php?espacio=Terraza');
     }else {
         // EN CASO DE FALSE NOS REDIRIGE AL LOGIN
         header('Location:../view/login.php');

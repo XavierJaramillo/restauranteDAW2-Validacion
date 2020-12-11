@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css/zonaRestaurante.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="../js/code.js"></script>
     </head>
     <body>
         <div class="nav"> 
@@ -16,18 +18,37 @@
 
         <div class="subnav">
             <!-- SUBNAV CON LINK A LOS DIFERENTES ESPACIOS -->
+            <form class="filtro" action="./zonaRestaurante.php" method="get">
             <ul>
-                <li><a href='../view/zonaRestaurante.php?espacio=VIPs'>VIPs</a></li>
-                <li><a href='../view/zonaRestaurante.php?espacio=Terraza'>Terraza</a></li>
-                <li><a href='../view/zonaRestaurante.php?espacio=Comedor'>Comedor</a></li>
+                
                 <li>
-                    <form class="filtro" action="./zonaRestaurante.php" method="get">
-                        <label>Filtro fecha:</label><input type="date" name="filtro_fecha" id="filtro_fecha">
-
-                        <input type="submit" value="Enviar">
-                    </form>
+                    <label for="espacio">Filtro espacio:</label>
+                    <select id="espacio" name="espacio" style="margin:0;">
+                        <?php
+                            if($_GET['espacio'] == "Terraza") {
+                                echo "<option value='Terraza'>Terraza</option>";
+                                echo "<option value='VIPs'>VIPs</option>";
+                                echo "<option value='Comedor'>Comedor</option>";
+                            } else if($_GET['espacio'] == "Comedor") {
+                                echo "<option value='Comedor'>Comedor</option>";
+                                echo "<option value='Terraza'>Terraza</option>";
+                                echo "<option value='VIPs'>VIPs</option>";
+                            } else {
+                                echo "<option value='VIPs'>VIPs</option>";
+                                echo "<option value='Comedor'>Comedor</option>";
+                                echo "<option value='Terraza'>Terraza</option>";
+                            }
+                        ?>
+                    </select>
                 </li>
+
+                <li>
+                    <label>Filtro fecha:</label><input type="date" name="filtro_fecha" id="filtro_fecha">
+                    <input type="submit" value="Enviar">
+                </li>
+                
             </ul>
+        </form>
         </div>
         
         <?php

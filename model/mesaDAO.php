@@ -17,23 +17,58 @@ class MesaDAO {
 
     public function crearReserva() {
         try {
+            include_once '../controller/sessionController.php';
+            include_once './camarero.php';
+
+            $this->pdo->beginTransaction();
+
+            //Variables reserva
             $dia = $_REQUEST['dia'];
             $hora = $_REQUEST['hora'];
             $id_mesa = $_REQUEST['id_mesa'];
             $espacio = $_REQUEST['tipo_espacio'];
+            if(isset($_REQUEST['nombre_comensal'])) {
+                $nombre_comensal = $_REQUEST['nombre_comensal'];
+            } else {
+                $nombre_comensal = "ClienteDefault";
+            }
             $url = "../view/zonaRestaurante.php?espacio={$espacio}";
+            $id_camarero = $_SESSION['camarero']->getId_camarero();
 
-            $query="INSERT INTO `reserva` (`dia`, `franja`, `id_mesa`) VALUES (?, ?, ?);";
+            $query="INSERT INTO `reserva` (`dia`, `franja`, `id_mesa`, `nombre_comensal`, `id_camarero`) VALUES (?, ?, ?, ?, ?);";
             $sentencia=$this->pdo->prepare($query);
             $sentencia->bindParam(1,$dia);
             $sentencia->bindParam(2,$hora);
             $sentencia->bindParam(3,$id_mesa);
+            $sentencia->bindParam(4,$nombre_comensal);
+            $sentencia->bindParam(5,$id_camarero);
+            $sentencia->execute();
+
+            //Variables mesa
+            $id_mesa = $_REQUEST['id_mesa'];
+            $capacidad_mesa = $_REQUEST['capacidad_mesa'];
+            if(isset($_REQUEST['disp_mesa'])) {
+                $disp_mesa = $_REQUEST['disp_mesa'];
+            } else {
+                $disp_mesa = "Disponible";
+            }
+            $espacio = $_REQUEST['tipo_espacio'];
+            $url = "../view/zonaRestaurante.php?espacio={$espacio}";
+
+            $query="UPDATE mesas SET mesas.capacidad_mesa = ?, mesas.disp_mesa = ? WHERE id_mesa = ?;";
+            $sentencia=$this->pdo->prepare($query);
+            $sentencia->bindParam(1,$capacidad_mesa);
+            $sentencia->bindParam(2,$disp_mesa);
+            $sentencia->bindParam(3,$id_mesa);
             $sentencia->execute();
             
+            $this->pdo->commit();
             header('Location: '.$url);
             
         } catch (Exception $e) {
-            header('Location: ../view/errorMesa.php?id='.$id_mesa);
+            $this->pdo->rollBack();
+            header('Location: ../view/errorMesa.php');
+            echo $e;
         }
     }
 
@@ -42,164 +77,111 @@ class MesaDAO {
     // EN EL CUAL SE ENCUENTRA LA MESA
     public function getMesas() {
         try {
+            include_once '../controller/sessionController.php';
+
             $con = 0;
 
-        if(isset($_REQUEST['espacio'])){
-            $tipoEspacio=$_REQUEST['espacio'];
-        } else {
-            $tipoEspacio="Libre";
-        }
-
-        if(isset($_GET['filtro_fecha'])) {
-            $fecha = "'".$_GET['filtro_fecha']."'";
-        } else {
-            $fecha = "CURDATE()";
-        }
-
-        $query = "SELECT m.*, c.*, qry.dia, qry.franja1, qry.franja2, qry.franja3, qry.franja4 
-        FROM espacio e 
-        INNER JOIN mesas m ON m.id_espacio = e.id_espacio 
-        LEFT JOIN camareros c ON m.id_camarero = c.id_camarero 
-        LEFT JOIN (SELECT r.dia, r.id_mesa, MAX( CASE WHEN r.franja = '13:00h-14:00h' THEN r.franja END ) AS franja1, 
-        MAX( CASE WHEN r.franja = '14:00h-15:00h' THEN r.franja END ) AS franja2, 
-        MAX( CASE WHEN r.franja = '21:00h-22:00h' THEN r.franja END ) AS franja3, 
-        MAX( CASE WHEN r.franja = '22:00h-23:00h' THEN r.franja END ) AS franja4 
-        FROM reserva r WHERE r.dia = CURDATE() GROUP BY r.dia) qry ON qry.id_mesa = m.id_mesa 
-        WHERE tipo_espacio = 1";
-
-        $sentencia = $this->pdo->prepare($query);
-        $sentencia->bindParam(1, $tipoEspacio);
-        $sentencia->bindParam(2, $fecha);
-        $sentencia->execute();
-        $lista_mesas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach($lista_mesas as $mesa) {
-            // COMPROBAMOS EL ESTADO DE LA MESA
-            $idMesa = $mesa['id_mesa'];
-            $estado = $mesa['disp_mesa'];
-            if($con%4==0){
-                echo "<tr>";
+            if(isset($_REQUEST['espacio'])){
+                $tipoEspacio=$_REQUEST['espacio'];
+            } else {
+                $tipoEspacio="Terraza";
             }
-            $con++;
-            // IMPRIMIMOS LAS MESAS SEGUN SU ESTADO
-                echo "<td>";
-                echo "<p class='pHistorico'><a class='aHistorico' href='./regMesa.php?id_mesa=$idMesa'><img src='../img/history.png' alt='historial'></a></p>";
-                echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesa.png'></img></a>";
-                echo "<p>Nº mesa: $idMesa</p>";
-                echo "<p>Camarero asignado: {$mesa['nombre_camarero']}</p>";
-                echo "<p>Comensal/es: 0</p>";
-                echo "<p>Franja 1: {$mesa['franja1']} </p>";
-                echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
-                echo "</td>";
-            
-            if($con%4==0){
-                echo "</tr>";
+
+            if(isset($_GET['filtro_fecha'])) {
+                if($_GET['filtro_fecha'] == "") {
+                    $fecha = Date('y-m-d');
+                } else {
+                    $fecha = $_GET['filtro_fecha'];
+                }
+            } else {
+                $fecha = Date('y-m-d');
             }
-        }
+
+            $query = "SELECT m.*, qry.dia, qry.franja1, qry.franja2, qry.franja3, qry.franja4, qry.nombre_camarero 
+            FROM espacio e INNER JOIN mesas m ON m.id_espacio = e.id_espacio 
+            LEFT JOIN( SELECT r.dia, r.id_mesa, c.nombre_camarero, 
+            MAX( CASE WHEN r.franja = '13:00h-14:00h' THEN r.franja END ) AS franja1, 
+            MAX( CASE WHEN r.franja = '14:00h-15:00h' THEN r.franja END ) AS franja2, 
+            MAX( CASE WHEN r.franja = '21:00h-22:00h' THEN r.franja END ) AS franja3, 
+            MAX( CASE WHEN r.franja = '22:00h-23:00h' THEN r.franja END ) AS franja4 FROM reserva r 
+            INNER JOIN camareros c ON r.id_camarero = c.id_camarero 
+            WHERE r.dia = ? GROUP BY r.dia ) qry ON qry.id_mesa = m.id_mesa 
+            WHERE tipo_espacio = ?";
+
+            $sentencia = $this->pdo->prepare($query);
+            $sentencia->bindParam(1, $fecha);
+            $sentencia->bindParam(2, $tipoEspacio);
+            $sentencia->execute();
+            $lista_mesas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+            $rol_user = $_SESSION['camarero']->getRol();
+            $index = 0;
+
+            foreach($lista_mesas as $mesa) {
+                // COMPROBAMOS EL ESTADO DE LA MESA
+                $idMesa = $mesa['id_mesa'];
+                $estado = $mesa['disp_mesa'];
+                if($con%4==0){
+                    echo "<tr>";
+                }
+                $index++;
+                $con++;
+                // IMPRIMIMOS LAS MESAS SEGUN SU ESTADO
+                    if($estado == "Disponible") {
+                        echo "<td>";
+                        echo "<p class='pHistorico' id='aHistorico{$index}' onmouseover='displayInfo({$index})' onmouseout='quitInfo({$index})'><img src='../img/history.png' alt='historial'></a></p>";
+                        echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesa.png'></img></a>";
+                        echo "<p>Nº mesa: $idMesa</p>";
+                        $this->imprimirInfo($mesa, $index);
+                        echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
+                        echo "</td>";
+                    } else {
+                        if($rol_user == 1 || $rol_user == 2) {
+                            echo "<td>";
+                            echo "<p class='pHistorico'><a class='aHistorico' href='./regMesa.php?id_mesa=$idMesa'><img src='../img/history.png' alt='historial'></a></p>";
+                            echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesaReparacion.png'></img></a>";
+                            echo "<p>Nº mesa: $idMesa</p>";
+                            echo "</td>";
+                        } else {
+                            echo "<td>";
+                            echo "<p class='pHistorico'><a class='aHistorico' href='./regMesa.php?id_mesa=$idMesa'><img src='../img/history.png' alt='historial'></a></p>";
+                            echo "<a href='#'><img src='../img/mesaReparacion.png'></img></a>";
+                            echo "<p>Nº mesa: $idMesa</p>";
+                            echo "</td>";
+                        }
+                    }
+                
+                if($con%4==0){
+                    echo "</tr>";
+                }
+            }
         } catch (Exception $e) {
             echo $e;
-        }
-        
+        }   
     }
 
-    public function filtrarMesas() {
-        $query = "SELECT r.dia, m.id_mesa, 
-        MAX( CASE WHEN r.franja = '13:00h-14:00h' THEN r.franja END ) AS franja1, 
-        MAX( CASE WHEN r.franja = '14:00h-15:00h' THEN r.franja END ) AS franja2, 
-        MAX( CASE WHEN r.franja = '21:00h-22:00h' THEN r.franja END ) AS franja3, 
-        MAX( CASE WHEN r.franja = '22:00h-23:00h' THEN r.franja END ) AS franja4 
-        FROM reserva r 
-        INNER JOIN mesas m ON r.id_mesa = m.id_mesa 
-        WHERE r.dia = '?' 
-        GROUP BY m.id_mesa, r.dia;";
-        $sentencia = $this->pdo->prepare($query);
-        $sentencia->bindParam(1, $tipoEspacio);
-        $sentencia->execute();
-        $filtro_mesas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // CON ESTE METODO CONTROLAMOS:
-    // 1- QUE CAMARERO SE ESTA HACIENDO CARGO DE LA MESA
-    // 2- PASAR EL ESTADO DE LA MESA A OCUPADO
-    // 3- CUANTOS COMENSALES TENEMOS EN LA MESA
-    // 4- LA HORA DE ENTRADA DE LOS COMENSALES
-    public function updateEntrada() {
-        try {
-            include_once '../controller/sessionController.php';
-            include_once './camarero.php';
-            $this->pdo->beginTransaction();
-            $id_camarero = $_SESSION['camarero']->getId_camarero();
-            $id_mesa = $_REQUEST['id_mesa'];
-            $disp_mesa = $_REQUEST['disp_mesa'];
-            $capacidad_mesa = $_REQUEST['capacidad_mesa'];
-            $espacio = $_REQUEST['tipo_espacio'];
-            $data_inicio = $_REQUEST['data_inicio'];
-            $data_final = $_REQUEST['data_final'];
-            $url = "../view/zonaRestaurante.php?espacio={$espacio}";
-
-            $query="UPDATE mesas SET mesas.capacidad_mesa = ?, mesas.id_camarero = ?, mesas.disp_mesa = ? WHERE id_mesa = ?;";
-            $sentencia=$this->pdo->prepare($query);
-            $sentencia->bindParam(1,$capacidad_mesa);
-            $sentencia->bindParam(2,$id_camarero);
-            $sentencia->bindParam(3,$disp_mesa);
-            $sentencia->bindParam(4,$id_mesa);
-            $sentencia->execute();
-
-            $query = "INSERT INTO horario (hora_entrada, id_mesa) VALUES (NOW(), ?);";
-            $sentencia=$this->pdo->prepare($query);
-            $sentencia->bindParam(1,$id_mesa);
-            $sentencia->execute();
-
-            $query = "INSERT INTO reserva (data_inicio, data_final) VALUES (?, ?);";
-            $sentencia=$this->pdo->prepare($query);
-            $sentencia->bindParam(1,$data_inicio);
-            $sentencia->bindParam(2,$data_final);
-            $sentencia->execute();
-            
-            $this->pdo->commit();
-            header('Location: '.$url);
-            
-        } catch (Exception $e) {
-            $this->pdo->rollBack();
-            echo $e;
+    public function imprimirInfo($mesa, $index) {
+        echo "<div class='info' id='caja$index'>";
+        if($mesa['franja1'] != NULL) {
+            echo "<p>Franja1: Ocupada/{$mesa['nombre_camarero']}</p>";
+        } else {
+            echo "<p>Franja1: Libre</p>";
         }
-    }
-    
-    // CON ESTE METODO CONTROLAMOS:
-    // 1- QUITAR EL ENCARGADO DE LA MESA
-    // 2- PASAR EL ESTADO DE LA MESA A LIBRE
-    // 3- PONER 0 COMENSALES EN LA MESA
-    // 4- LA HORA DE SALIDA DE LOS COMENSALES
-    public function updateSalida() {
-        try {
-            $this->pdo->beginTransaction();
-            $id_mesa = $_REQUEST['id_mesa'];
-            $disp_mesa = $_REQUEST['disp_mesa'];
-            $espacio = $_REQUEST['tipo_espacio'];
-            
-            $url = "../view/zonaRestaurante.php?espacio={$espacio}";
-            
-            $query="UPDATE mesas SET mesas.capacidad_mesa = 0, mesas.id_camarero = NULL, mesas.disp_mesa = ? WHERE id_mesa = ?;";
-            $sentencia=$this->pdo->prepare($query);
-            $sentencia->bindParam(1,$disp_mesa);
-            $sentencia->bindParam(2,$id_mesa);
-            $sentencia->execute();
-            
-            $query = "UPDATE horario, (SELECT MAX(hora_entrada) AS maximo FROM horario WHERE id_mesa = ?) AS tmax
-            SET horario.hora_salida = NOW()
-            WHERE horario.hora_entrada=tmax.maximo AND horario.id_mesa=?";
-            $sentencia=$this->pdo->prepare($query);
-            $sentencia->bindParam(1,$id_mesa);
-            $sentencia->bindParam(2,$id_mesa);
-            $sentencia->execute();
-
-            $this->pdo->commit();
-            header('Location: '.$url);
-            
-        } catch (Exception $e) {
-            $this->pdo->rollBack();
-            echo $e;
+        if($mesa['franja2'] != NULL) {
+            echo "<p>Franja2: Ocupada/{$mesa['nombre_camarero']}</p>";
+        } else {
+            echo "<p>Franja2: Libre</p>";
         }
+        if($mesa['franja3'] != NULL) {
+            echo "<p>Franja3: Ocupada/{$mesa['nombre_camarero']}</p>";
+        } else {
+            echo "<p>Franja3: Libre</p>";
+        }
+        if($mesa['franja4'] != NULL) {
+            echo "<p>Franja4: Ocupada/{$mesa['nombre_camarero']}</p>";
+        } else {
+            echo "<p>Franja4: Libre</p>";
+        }
+        echo "</div>";
     }
 
     // ESTE METODO NOS PERMITE VER EL HISTORIAL DE LA MESA, ES DECIR, HORAS/DIAS DE ENTRADA Y SALIDA

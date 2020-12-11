@@ -37,6 +37,9 @@
         <!-- PONEMOS EL ID DE LA MESA (PERO EN OCULTO PORQUE NO QUEREMOS QUE SEA VISIBLE/EDITABLE) -->
         <input type="text" id="id_mesa" name="id_mesa" style="display:none" value="<?php echo $mesa['id_mesa'];?>">
         
+        <label for="nombre_comensal">Nombre comensal:</label><br>
+        <input type="text" id="nombre_comensal" name="nombre_comensal"><br>
+
         <label for="tipo_espacio">Tipo espacio:</label><br>
         <input type="text" id="tipo_espacio" name="tipo_espacio" value="<?php echo $mesa['tipo_espacio'];?>" readonly><br>
 
@@ -119,7 +122,7 @@
 
             if ($dMesa['disp_mesa'] != "Ocupada"){
                 echo "<label for='capacidad_mesa'>Capacidad actual:</label><br>";
-                echo "<input type='text' id='capacidad_mesa' name='capacidad_mesa' value='{$mesa['capacidad_mesa']}'><br>";
+                echo "<input type='text' id='capacidad_mesa' name='capacidad_mesa' value='0'><br>";
             }
             
             echo "<input class='edit' type='submit' value='Update'>";

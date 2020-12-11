@@ -48,3 +48,14 @@ function validacionLogin() {
     }
     return false;
 }
+
+//Hover estado de la mesa
+function displayInfo(number) {
+    caja = document.getElementById('caja' + number);
+    caja.style.display = "block"
+}
+
+function quitInfo(number) {
+    caja = document.getElementById('caja' + number);
+    caja.style.display = "none"
+}
