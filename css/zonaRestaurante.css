@@ -255,3 +255,17 @@ select {
 .btnVolverDiv {
     text-align: center;
 }
+
+
+/* ZONA ADMIN TABLA */
+
+#tablaCamareros {
+    margin: 5% auto;
+    background-color: rgba(184, 184, 184, 0.609);
+    font-size: 35px;
+}
+
+#tablaCamareros th,
+#tablaCamareros td {
+    padding: 15px;
+}

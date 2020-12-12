@@ -4,7 +4,6 @@ class Camarero {
     private $id_camarero;
     private $nombre_camarero;
     private $pass_camarero;
-    private $idMantenimiento;
     private $rol;
 
     //CONSTRUCTOR 
@@ -23,9 +22,6 @@ class Camarero {
     public function getPass_camarero() {
         return $this->pass_camarero;
     }
-    public function getIdMantenimiento() {
-        return $this->idMantenimiento;
-    }
     public function getRol() {
         return $this->rol;
     }
@@ -38,9 +34,6 @@ class Camarero {
     }
     public function setPass_camarero($pass_camarero) {
         $this->pass_camarero = $pass_camarero;
-    }    
-    public function setIdMantenimiento($idMantenimiento) {
-        $this->idMantenimiento = $idMantenimiento;
     }
     public function setRol($rol) {
         $this->rol = $rol;

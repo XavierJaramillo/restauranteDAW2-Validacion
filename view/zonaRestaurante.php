@@ -10,7 +10,6 @@
     <body>
         <div class="nav"> 
             <!-- CONTROL DE SESIONES Y BOTONES -->
-            <!-- <img class="logo" src="../img/logo.png" alt="Logo restaurante"> -->
             <?php
                 require_once '../controller/sessionController.php';
             ?>
@@ -20,20 +19,25 @@
             <!-- SUBNAV CON LINK A LOS DIFERENTES ESPACIOS -->
             <form class="filtro" action="./zonaRestaurante.php" method="get">
             <ul>
+                <?php
+                    if($_SESSION['camarero']->getRol() == 2) {
+                        echo "<li> <a href='./index.admin.php'>Admin</a> </li>";
+                    }
+                ?>
                 
                 <li>
-                    <label for="espacio">Filtro espacio:</label>
-                    <select id="espacio" name="espacio" style="margin:0;">
+                    <label for="tipo_espacio">Filtro espacio:</label>
+                    <select id="tipo_espacio" name="tipo_espacio" style="margin:0;">
                         <?php
-                            if($_GET['espacio'] == "Terraza") {
+                            if($_REQUEST['tipo_espacio'] == "Terraza") {
                                 echo "<option value='Terraza'>Terraza</option>";
                                 echo "<option value='VIPs'>VIPs</option>";
                                 echo "<option value='Comedor'>Comedor</option>";
-                            } else if($_GET['espacio'] == "Comedor") {
+                            } else if($_REQUEST['tipo_espacio'] == "Comedor") {
                                 echo "<option value='Comedor'>Comedor</option>";
                                 echo "<option value='Terraza'>Terraza</option>";
                                 echo "<option value='VIPs'>VIPs</option>";
-                            } else {
+                            } else if($_REQUEST['tipo_espacio'] == "VIPs") {
                                 echo "<option value='VIPs'>VIPs</option>";
                                 echo "<option value='Comedor'>Comedor</option>";
                                 echo "<option value='Terraza'>Terraza</option>";

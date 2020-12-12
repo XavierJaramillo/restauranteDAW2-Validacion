@@ -59,3 +59,19 @@ function quitInfo(number) {
     caja = document.getElementById('caja' + number);
     caja.style.display = "none"
 }
+
+//Controlamos que la contraseña este validada
+function validacionPass(e) {
+    flag = false;
+    pass = document.getElementById('contrasenya').value;
+    passVal = document.getElementById('contrasenyaVal').value;
+    msg = document.getElementById('msgErr');
+
+    if (pass == passVal) {
+        flag = true;
+    } else {
+        msg.innerHTML = "La contraseña no esta validada";
+    }
+
+    return flag;
+}
