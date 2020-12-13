@@ -58,10 +58,12 @@
     echo "<th>Cargo</th>";
     echo "</tr>";
     
-    if (empty($_POST['filtrar'])){
-        echo $camareroDAO->readCamareros();
-    } else if(isset($_GET['eliminar']) && isset($_GET['id_camarero'])) {
+    $camareroDAO->readCamareros();
+    
+    if(isset($_GET['eliminar'])) {
         $camareroDAO->eliminarCamarero($_GET['id_camarero']);
+    } else if(isset($_POST['mod'])) {
+        $camareroDAO->modificarCamarero();
     }
 
     echo "</table>";

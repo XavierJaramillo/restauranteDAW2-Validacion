@@ -76,7 +76,7 @@ function validacionPass(e) {
         pass.style.borderColor = "transparent";
         passValidada.style.borderColor = "transparent";
     } else {
-        msg.innerHTML = "La contraseña no esta validada";
+        msg.innerHTML = "Las contraseñas deben ser iguales.";
         pass.style.borderColor = "red";
         passValidada.style.borderColor = "red";
     }

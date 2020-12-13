@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../css/zonaRestaurante.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="../js/code.js"></script>
-    <title>Añadir trabajador</title>
+    <title>Modificar trabajador</title>
 </head>
 <body>
 
@@ -46,36 +46,52 @@
     </form>
     </div>
 
-    <?php
-        if(isset($_POST['nombre_camarero'])) {
-            require_once '../model/camareroDAO.php';
-            $camareroDAO = new camareroDAO();
-            $camareroDAO->añadir();
-            header('LOCATION: ../view/index.admin.php');
-        }
-    ?>
+    <?php  
+    require_once '../model/camareroDAO.php';
+    $c = new camareroDAO();
 
-<div class="editar">
-    <form action="../view/añadirCamarero.php" class="reservaForm" method="POST" onsubmit="return validacionPass(event)">
+    $id = $_GET['id_camarero'];
+    $trabajador = $c->getCamarero($id);
+    ?>
+    
+    <div class="editar">
+        <form action="../view/index.admin.php" class="reservaForm" method="POST" onsubmit="return validacionPass(event)">
+        <input type="text" id="id_camarero_modificar" name="id_camarero_modificar" style="display:none" value="<?php echo $trabajador['id_camarero'];?>">
+        <input type="text" id="mod" name="mod" style="display:none" value="true">
+
         <label for="nombre_camarero">Nombre:</label><br>
-        <input type="text" id="nombre_camarero" name="nombre_camarero" required><br>
+        <input type="text" id="nombre_camarero" name="nombre_camarero" value="<?php echo $trabajador['nombre_camarero'];?>" required><br>
         
         <label for="contrasenya">Contraseña:</label><br>
         <input type="password" id="contrasenya" name="contrasenya" required><br>
-    
+
         <label for="contrasenyaVal">Repite contraseña:</label><br>
         <input type="password" id="contrasenyaVal" name="contrasenyaVal" required><br>
-        
+
         <label for="rol">Cargo:</label><br>
         <select id="rol" name="rol" style="margin:0;" required>
-            <option value='0'>Camarero</option>
-            <option value='1'>Mantenimiento</option>
-            <option value='2'>Administrador</option>
+            <?php
+                if($trabajador['rol'] == "0") {
+                    echo "<option value='0'>Camarero</option>";
+                    echo "<option value='1'>Mantenimiento</option>";
+                    echo "<option value='2'>Administrador</option>";
+                } else if($trabajador['rol'] == "1") {
+                    echo "<option value='1'>Mantenimiento</option>";
+                    echo "<option value='0'>Camarero</option>";
+                    echo "<option value='2'>Administrador</option>";
+                } else if($trabajador['rol'] == "2") {
+                    echo "<option value='2'>Administrador</option>";
+                    echo "<option value='0'>Camarero</option>";
+                    echo "<option value='1'>Mantenimiento</option>";
+                }
+            ?>
         </select>
+        
         <p id="msgErr"></p>
-        <input class="edit" type="submit" value="Crear">
-    </form> 
-    </div>
 
+        <input class="edit" type="submit" value="Actualizar">
+        </form> 
+    </div>
+    
 </body>
 </html>

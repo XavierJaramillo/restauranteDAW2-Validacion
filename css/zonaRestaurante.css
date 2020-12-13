@@ -188,7 +188,8 @@ body {
 }
 
 .reservaForm input[type="text"],
-.reservaForm input[type="date"] {
+.reservaForm input[type="date"],
+.reservaForm input[type="password"] {
     border: 2px solid #ffffff;
     border-radius: 8px;
     background-color: #ffffff;
