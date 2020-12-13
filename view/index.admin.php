@@ -47,6 +47,7 @@
 
     <?php
     require_once '../model/camareroDAO.php';
+    $camareroDAO = new camareroDAO();
 
     echo "<table id='tablaCamareros' style='border: 1px solid black'>";
     echo "<tr>";
@@ -58,8 +59,9 @@
     echo "</tr>";
     
     if (empty($_POST['filtrar'])){
-        $camareroDAO = new camareroDAO();
         echo $camareroDAO->readCamareros();
+    } else if(isset($_GET['eliminar']) && isset($_GET['id_camarero'])) {
+        $camareroDAO->eliminarCamarero($_GET['id_camarero']);
     }
 
     echo "</table>";

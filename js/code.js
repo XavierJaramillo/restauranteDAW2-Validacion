@@ -62,16 +62,25 @@ function quitInfo(number) {
 
 //Controlamos que la contraseña este validada
 function validacionPass(e) {
+    //Variables
     flag = false;
-    pass = document.getElementById('contrasenya').value;
-    passVal = document.getElementById('contrasenyaVal').value;
+    passValue = document.getElementById('contrasenya').value;
+    passValueValidada = document.getElementById('contrasenyaVal').value;
+    pass = document.getElementById('contrasenya');
+    passValidada = document.getElementById('contrasenyaVal');
     msg = document.getElementById('msgErr');
 
-    if (pass == passVal) {
+    //Logica para validar contraseña
+    if (passValue == passValueValidada) {
         flag = true;
+        pass.style.borderColor = "transparent";
+        passValidada.style.borderColor = "transparent";
     } else {
         msg.innerHTML = "La contraseña no esta validada";
+        pass.style.borderColor = "red";
+        passValidada.style.borderColor = "red";
     }
 
+    //Devolvemos true o false
     return flag;
 }
