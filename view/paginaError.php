@@ -59,7 +59,7 @@
     <?php
 
     if(isset($_GET['nombre'])) {
-        echo "<span>Error al crear usuario. El nombre '{$_GET['nombre']}', ya existe.</span>";
+        echo "<span>Error al {$_GET['accion']} usuario. El nombre '{$_GET['nombre']}', ya existe.</span>";
     } else if(isset($_GET['id'])) {
         echo "<span>Error al {$_GET['accion']} la mesa {$_GET['id']}.";
     }

@@ -77,7 +77,7 @@ class camareroDAO {
             $nombre=$_POST['nombre_camarero'];
             $pass=md5($_POST['contrasenya']);
             $rol=$_POST['rol'];
-            $urlErr = "../view/paginaError.php?nombre=".$nombre;
+            $urlErr = "../view/paginaError.php?accion=añadir&nombre=".$nombre;
         
             // MIRAMOS SI EN LA TABLA NOTAS HAY ALGUNA NOTA CON LA ID DEL camareros
             $query = "INSERT INTO `camareros` (`nombre_camarero`, `pass_camarero`, `rol`) VALUES (?, ?, ?)";
@@ -114,6 +114,7 @@ class camareroDAO {
             $nombre = $_POST['nombre_camarero'];
             $pass = md5($_POST['contrasenya']);
             $rol = $_POST['rol'];
+            $urlErr = "../view/paginaError.php?accion=modificar&nombre=".$nombre;
 
             $query = "UPDATE camareros SET nombre_camarero=?, pass_camarero=?, rol=? WHERE id_camarero=?";
             $sentencia=$this->pdo->prepare($query);
@@ -126,6 +127,7 @@ class camareroDAO {
             header('Location: ../view/index.admin.php');
         } catch (Exception $e) {
             echo $e;
+            header('Location: '.$urlErr);
         }
     }
 }
