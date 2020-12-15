@@ -10,7 +10,7 @@
 <body>
 
     <div class="nav"> 
-    <a class='atras' href='./zonaRestaurante.php?espacio=Terraza'>Atrás</a>
+    <a class='atras' href='./zonaRestaurante.php?tipo_espacio=Terraza'>Atrás</a>
         <!-- CONTROL DE SESIONES Y BOTONES -->
         <?php
             require_once '../controller/sessionController.php';
@@ -52,19 +52,25 @@
     echo "<table id='tablaCamareros' style='border: 1px solid black'>";
     echo "<tr>";
     echo "<form action='index.admin.php' method='POST'>";
-    echo "<th colspan='2'><a href='../view/añadirCamarero.php'><i class='material-icons'>add_circle_outline</i></a></th>";
+    echo "<th colspan='2'><a class='m' href='../view/añadirCamarero.php'><i class='material-icons'>add_circle_outline</i></a></th>";
     echo "<th>Nombre trabajador</th>";
     echo "<th>Contraseña</th>";
     echo "<th>Cargo</th>";
     echo "</tr>";
     
-    $camareroDAO->readCamareros();
+    if(isset($_GET['baja'])) {
+        if($_GET['baja'] == "t") {
+            $camareroDAO->bajaCamarero($_GET['id_camarero'], 1);
+        } else if($_GET['baja'] == "f") {
+            $camareroDAO->bajaCamarero($_GET['id_camarero'], 0);
+        }
+    }
     
-    if(isset($_GET['eliminar'])) {
-        $camareroDAO->eliminarCamarero($_GET['id_camarero']);
-    } else if(isset($_POST['mod'])) {
+    if(isset($_POST['mod'])) {
         $camareroDAO->modificarCamarero();
     }
+
+    $camareroDAO->readCamareros();
 
     echo "</table>";
 

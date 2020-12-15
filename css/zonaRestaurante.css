@@ -91,7 +91,7 @@ body {
     text-align: center;
     border: 2px solid black;
     border-radius: 15px;
-    padding-bottom: 20px;
+    padding: 8px;
     background-color: rgba(0, 0, 0, 0.527);
 }
 
@@ -108,7 +108,7 @@ body {
 .info {
     border: 1px solid black;
     position: absolute;
-    width: 96.5%;
+    width: 93%;
     top: 20%;
     padding: 5px;
     display: none;
@@ -116,15 +116,13 @@ body {
     color: black;
 }
 
-.pHistorico {
-    margin-left: 1px!important;
-    margin-top: 10px!important;
-    width: min-content;
+.botones {
+    width: fit-content;
 }
 
-.pHistorico img {
-    width: 35px!important;
-    height: auto!important;
+.bWhite:link,
+.bWhite:visited {
+    color: white;
 }
 
 
@@ -271,4 +269,30 @@ select {
 #tablaCamareros th,
 #tablaCamareros td {
     padding: 15px;
+}
+
+.w:link,
+.e:link,
+.m:link {
+    color: black;
+}
+
+.w:visited,
+.e:visited,
+.m:visited {
+    color: black;
+}
+
+
+/* PAGINA DE ERROR */
+
+.error {
+    font-size: 35px;
+    width: fit-content;
+    margin: 5% auto;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    border: 1px solid white;
+    color: white;
 }

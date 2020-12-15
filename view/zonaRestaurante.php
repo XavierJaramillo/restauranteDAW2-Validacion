@@ -60,18 +60,29 @@
 
         // INSTANCIAMOS LA CLASE MESADAO PARA PODER USAR SUS METODOS
         $mesaDAO = new MesaDAO();
-        echo "<table id='table' style='margin-left: auto;margin-right: auto;border-spacing: 55px'>";
-        echo "<tbody>";
-        echo $mesaDAO->getMesas();
-        echo "</table>";
+
+        if(isset($_REQUEST['habilitar'])) {
+            if($_REQUEST['habilitar'] == "t") {
+                $mesaDAO->habilitarMesa("Disponible");
+                header("Location: ../view/zonaRestaurante.php?tipo_espacio={$_REQUEST['tipo_espacio']}");
+            } else if($_REQUEST['habilitar'] == "f") {
+                $mesaDAO->habilitarMesa("Reparacion");
+                header("Location: ../view/zonaRestaurante.php?tipo_espacio={$_REQUEST['tipo_espacio']}");
+            }
+        }
 
         // CONTROLAMOS QUE VARIABLES ESTAN INICIALIZADAS Y SEGÚN ESTO, LLAMAMOS AL METODO CORRESPONDIENTE
         // EL CUAL CONTROLA EL CONTENIDO DE LA TABLA
         if(isset($_REQUEST['id_mesa'])) {
-            if($_REQUEST['disp_mesa'] == "Disponible") {
+            if(isset($_REQUEST['capacidad_mesa'])) {
                 $mesaDAO->crearReserva();
             }
         }
+
+        echo "<table id='table' style='margin-left: auto;margin-right: auto;border-spacing: 55px'>";
+        echo "<tbody>";
+        echo $mesaDAO->getMesas();
+        echo "</table>";
         ?>
 
         </tbody>

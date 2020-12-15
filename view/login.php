@@ -18,6 +18,15 @@
             <input type="text" name="user" id="user" >
             <p>Contraseña: </p>
             <input type="password" name="pass" id="pass" ><br>
+            <?php
+                if(isset($_GET['err'])) {
+                    if ($_GET['err']==1) {
+                        echo "<p style='color:red'>Trabajador inexistente.</p>";
+                    } else if ($_GET['err']==2) {
+                        echo "<p style='color:red'>Este trabajador esta de baja.</p>";
+                    }
+                }
+            ?>
             <input type="submit" value="Iniciar sesión">
         </form>
     </div>

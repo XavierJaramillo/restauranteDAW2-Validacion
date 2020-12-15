@@ -51,7 +51,6 @@
             require_once '../model/camareroDAO.php';
             $camareroDAO = new camareroDAO();
             $camareroDAO->añadir();
-            header('LOCATION: ../view/index.admin.php');
         }
     ?>
 

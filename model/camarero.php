@@ -5,6 +5,7 @@ class Camarero {
     private $nombre_camarero;
     private $pass_camarero;
     private $rol;
+    private $estado;
 
     //CONSTRUCTOR 
     function __construct($nombre_camarero, $pass_camarero) {
@@ -25,6 +26,9 @@ class Camarero {
     public function getRol() {
         return $this->rol;
     }
+    public function getEstado() {
+        return $this->estado;
+    }
 
     public function setId_camarero($id_camarero) {
         $this->id_camarero = $id_camarero;
@@ -37,6 +41,9 @@ class Camarero {
     }
     public function setRol($rol) {
         $this->rol = $rol;
+    }
+    public function setEstado($estado) {
+        $this->estado = $estado;
     }
 }
 
