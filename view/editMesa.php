@@ -33,7 +33,7 @@
     ?>
     <!-- FORMULARIO PARA EDITAR EL ESTADO DE LA MESA -->
     <div class="editar">
-        <form action="zonaRestaurante.php" method="POST" class="reservaForm" onsubmit="return validacionCapacidad()">
+        <form action="zonaRestaurante.php" method="POST" class="reservaForm" onsubmit="return validacion()">
         <!-- PONEMOS EL ID DE LA MESA (PERO EN OCULTO PORQUE NO QUEREMOS QUE SEA VISIBLE/EDITABLE) -->
         <input type="text" id="id_mesa" name="id_mesa" style="display:none" value="<?php echo $mesa['id_mesa'];?>">
         
@@ -44,7 +44,7 @@
         <input type="text" id="tipo_espacio" name="tipo_espacio" value="<?php echo $mesa['tipo_espacio'];?>" readonly><br>
 
         <label for="dia">Día:</label><br>
-        <input type="date" name="dia" id="dia"><br>
+        <input type="date" name="dia" id="dia" min="<?php echo date('Y-m-d') ?>"><br>
 
         <label for="hora">Franja horaria:</label><br>
         <select name="hora" id="hora">
@@ -74,6 +74,7 @@
             
             echo "<input class='edit' type='submit' value='Update'>";
             echo "<p id='msg'></p>";
+            echo "<p id='msgHora'></p>";
 
         } else {
             $id = $_REQUEST['id_mesa'];
@@ -90,6 +91,7 @@
 
             echo "<input class='edit' type='submit' value='Update'>";
             echo "<p id='msg'></p>";
+            echo "<p id='msgHora'></p>";
 
         }
         ?>
