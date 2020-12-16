@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../css/zonaRestaurante.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="../js/code.js"></script>
-    <title>Añadir trabajador</title>
+    <title>Añadir trabajador | Restaurante</title>
 </head>
 <body>
 

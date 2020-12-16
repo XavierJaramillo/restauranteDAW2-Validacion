@@ -1,11 +1,11 @@
 <html>
     <head>
-        <title>Pagina Principal | Restaurante</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css/zonaRestaurante.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="../js/code.js"></script>
+        <title>Página Principal | Restaurante</title>
     </head>
     <body>
         <div class="nav"> 
@@ -17,7 +17,7 @@
 
         <div class="subnav">
             <!-- SUBNAV CON LINK A LOS DIFERENTES ESPACIOS -->
-            <form class="filtro" action="./zonaRestaurante.php" method="get">
+            <form action="./zonaRestaurante.php" method="get">
             <ul>
                 <?php
                     if($_SESSION['camarero']->getRol() == 2) {
@@ -26,7 +26,7 @@
                 ?>
                 
                 <li>
-                    <label for="tipo_espacio">Filtro espacio:</label>
+                    <label for="tipo_espacio">Espacio </label>
                     <select id="tipo_espacio" name="tipo_espacio" style="margin:0;">
                         <?php
                             require_once '../model/espacioDAO.php';
@@ -42,8 +42,8 @@
                 </li>
 
                 <li>
-                    <label>Filtro fecha:</label><input type="date" name="filtro_fecha" id="filtro_fecha">
-                    <input type="submit" value="Enviar">
+                    <label>Fecha </label><input type="date" name="filtro_fecha" id="filtro_fecha">
+                    <input type="submit" value="Buscar">
                 </li>
                 
             </ul>

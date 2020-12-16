@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../js/code.js"></script>
     <link rel="stylesheet" href="../css/zonaRestaurante.css">
-    <title>Editar mesa</title>
+    <link rel="stylesheet" href="../css/reserva.css">
+    <title>Crear reserva | Restaurante</title>
 </head>
 <body>
     <div class="nav"> 
@@ -31,9 +32,11 @@
         $mesa = $sentencia->fetch(PDO::FETCH_ASSOC);
         $pdo->commit();
     ?>
+
     <!-- FORMULARIO PARA EDITAR EL ESTADO DE LA MESA -->
-    <div class="editar">
+    <div class="editarDiv">
         <form action="zonaRestaurante.php" method="POST" class="reservaForm" onsubmit="return validacion()">
+            <h1>Reservar mesa <?php echo $mesa['id_mesa'];?>.</h1>
         <!-- PONEMOS EL ID DE LA MESA (PERO EN OCULTO PORQUE NO QUEREMOS QUE SEA VISIBLE/EDITABLE) -->
         <input type="text" id="id_mesa" name="id_mesa" style="display:none" value="<?php echo $mesa['id_mesa'];?>">
         
@@ -72,7 +75,7 @@
             echo "<label for='capacidad_mesa'>Capacidad actual:</label><br>";
             echo "<input type='text' id='capacidad_mesa' name='capacidad_mesa' value='1'><br>";
             
-            echo "<input class='edit' type='submit' value='Update'>";
+            echo "<input class='reservar' type='submit' value='Reservar'>";
             echo "<p id='msg'></p>";
             echo "<p id='msgHora'></p>";
 
@@ -89,7 +92,7 @@
             echo "<label for='capacidad_mesa'>Capacidad actual:</label><br>";
             echo "<input type='text' id='capacidad_mesa' name='capacidad_mesa' value='1'><br>";
 
-            echo "<input class='edit' type='submit' value='Update'>";
+            echo "<input class='reservar' type='submit' value='Reservar'>";
             echo "<p id='msg'></p>";
             echo "<p id='msgHora'></p>";
 

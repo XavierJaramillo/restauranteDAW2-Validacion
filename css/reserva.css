@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+/* FORMULARIO EDITAR MESA */
+
+.editarDiv {
+    width: 100%;
+    height: 100%;
+    padding: 50px 15px;
+}
+
+.reservaForm {
+    width: fit-content;
+    margin: auto;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 35px;
+    color: white;
+}
+
+.reservaForm label {
+    font-size: 15px;
+}
+
+.reservaForm input,
+.reservaForm select {
+    padding: 5px;
+}
+
+.reservaForm h1 {
+    font-size: 35px;
+    color: white;
+    margin: 0 0 15px 0;
+    padding: 0;
+}
+
+.reservar {
+    padding: 5px 15px;
+    width: 50%;
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: rgb(165, 165, 165);
+}
+
+#hora,
+#nombre_comensal,
+#tipo_espacio,
+#dia,
+#capacidad_max,
+#capacidad_mesa,
+.reservaForm selec {
+    width: 100%;
+    border-radius: 10px;
+    margin: 0 0 15px 0;
+}
