@@ -1,6 +1,6 @@
 <?php
 // CONEXIÓN A LA BASE DE DDATOS MEDIANTE PDO
-include 'config.php';
+include_once 'config.php';
 try {
     $dsn = "mysql:host=".SERVIDOR.";dbname=".BD;
     $pdo = new PDO($dsn, USER, PASSWORD);

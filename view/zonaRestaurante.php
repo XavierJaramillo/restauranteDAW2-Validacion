@@ -29,18 +29,13 @@
                     <label for="tipo_espacio">Filtro espacio:</label>
                     <select id="tipo_espacio" name="tipo_espacio" style="margin:0;">
                         <?php
-                            if($_REQUEST['tipo_espacio'] == "Terraza") {
-                                echo "<option value='Terraza'>Terraza</option>";
-                                echo "<option value='VIPs'>VIPs</option>";
-                                echo "<option value='Comedor'>Comedor</option>";
-                            } else if($_REQUEST['tipo_espacio'] == "Comedor") {
-                                echo "<option value='Comedor'>Comedor</option>";
-                                echo "<option value='Terraza'>Terraza</option>";
-                                echo "<option value='VIPs'>VIPs</option>";
-                            } else if($_REQUEST['tipo_espacio'] == "VIPs") {
-                                echo "<option value='VIPs'>VIPs</option>";
-                                echo "<option value='Comedor'>Comedor</option>";
-                                echo "<option value='Terraza'>Terraza</option>";
+                            require_once '../model/espacioDAO.php';
+
+                            $espacioDAO = new espacioDAO();
+                            $listaEspacios = $espacioDAO->getEspacios();
+                            
+                            foreach ($listaEspacios as $espacio) {
+                                    echo "<option value='{$espacio['tipo_espacio']}'>{$espacio['tipo_espacio']}</option>";
                             }
                         ?>
                     </select>
@@ -56,7 +51,7 @@
         </div>
         
         <?php
-        include_once '../model/mesaDAO.php';
+        require_once '../model/mesaDAO.php';
 
         // INSTANCIAMOS LA CLASE MESADAO PARA PODER USAR SUS METODOS
         $mesaDAO = new MesaDAO();

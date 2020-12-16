@@ -1,5 +1,4 @@
 <?php
-require_once 'mesa.php';
 class MesaDAO {
     // ATRIBUTOS
     private $pdo;
