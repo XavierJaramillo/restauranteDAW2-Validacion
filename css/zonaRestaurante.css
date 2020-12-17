@@ -84,6 +84,11 @@ body {
     border-radius: 10px;
 }
 
+.subnav input[type="submit"]:hover {
+    background-color: black;
+    color: white;
+}
+
 .subnav label {
     padding-right: 15px;
     font-size: 19px;
