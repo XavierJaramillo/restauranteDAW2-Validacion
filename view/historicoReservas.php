@@ -5,10 +5,11 @@
         <link rel="stylesheet" type="text/css" href="../css/zonaRestaurante.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="../js/code.js"></script>
-        <title>Página Principal | Restaurante</title>
+        <title>Reservas historico | Restaurante</title>
     </head>
     <body>
-        <div class="nav"> 
+        <div class="nav">
+            <a class='atras' href='./zonaRestaurante.php?tipo_espacio=Terraza&filtro_fecha='>Atrás</a>
             <!-- CONTROL DE SESIONES Y BOTONES -->
             <?php
                 require_once '../controller/sessionController.php';
@@ -53,38 +54,28 @@
             </ul>
         </form>
         </div>
-        
+
+        <div class="reservasHistorico">
         <?php
-        require_once '../model/mesaDAO.php';
+            require_once '../model/reservaDAO.php';
+            $reservaDAO = new reservaDAO();
+            
+            echo "<table id='tablaCamareros'>";
+            echo "<tr>";
+            echo "<th>ID</th>";
+            echo "<th>Día</th>";
+            echo "<th>Hora</th>";
+            echo "<th>Mesa</th>";
+            echo "<th>Nombre reserva</th>";
+            echo "<th>Comensales</th>";
+            echo "<th>Encargado</th>";
+            echo "</tr>";
+            
+            $reservaDAO->readReservas();
 
-        // INSTANCIAMOS LA CLASE MESADAO PARA PODER USAR SUS METODOS
-        $mesaDAO = new MesaDAO();
+            echo "</table>";
 
-        if(isset($_REQUEST['habilitar'])) {
-            if($_REQUEST['habilitar'] == "t") {
-                $mesaDAO->habilitarMesa("Disponible");
-                header("Location: ../view/zonaRestaurante.php?tipo_espacio={$_REQUEST['tipo_espacio']}");
-            } else if($_REQUEST['habilitar'] == "f") {
-                $mesaDAO->habilitarMesa("Reparacion");
-                header("Location: ../view/zonaRestaurante.php?tipo_espacio={$_REQUEST['tipo_espacio']}");
-            }
-        }
-
-        // CONTROLAMOS QUE VARIABLES ESTAN INICIALIZADAS Y SEGÚN ESTO, LLAMAMOS AL METODO CORRESPONDIENTE
-        // EL CUAL CONTROLA EL CONTENIDO DE LA TABLA
-        if(isset($_REQUEST['id_mesa'])) {
-            if(isset($_REQUEST['capacidad_mesa'])) {
-                $mesaDAO->crearReserva();
-            }
-        }
-
-        echo "<table id='table' style='margin-left: auto;margin-right: auto;border-spacing: 55px'>";
-        echo "<tbody>";
-        echo $mesaDAO->getMesas();
-        echo "</table>";
         ?>
-
-        </tbody>
-        </table>
+        </div>
     </body>
 </html>

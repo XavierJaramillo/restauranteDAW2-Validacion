@@ -177,8 +177,7 @@ body {
     width: 65%;
     height: auto;
     margin: 5% auto;
-    background-color: rgba(184, 184, 184, 0.609);
-    font-size: 35px;
+    color: white;
 }
 
 #tablaCamareros th,
@@ -186,16 +185,29 @@ body {
     padding: 15px;
 }
 
+#tablaCamareros th {
+    background-color: rgba(73, 73, 73, 0.75);
+}
+
+#tablaCamareros td {
+    background-color: rgba(226, 226, 226, 0.45);
+    color: black;
+    font-weight: bolder;
+}
+
 .w:link,
-.e:link,
-.m:link {
+.e:link {
     color: black;
 }
 
 .w:visited,
-.e:visited,
-.m:visited {
+.e:visited {
     color: black;
+}
+
+.m:link,
+.m:visited {
+    color: white;
 }
 
 

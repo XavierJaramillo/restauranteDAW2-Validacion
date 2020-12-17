@@ -11,7 +11,7 @@ if (isset($_POST['user'])) {
     if($camareroDAO->login($camarero)){
         // EN CASO DE TRUE NOS REDIRIGE A LA PAGINA PRINCIPAL
         if($_SESSION['camarero']->getEstado()==0) {
-            header('Location:../view/zonaRestaurante.php?tipo_espacio=Terraza');
+            header('Location:../view/zonaRestaurante.php?tipo_espacio=Terraza&filtro_fecha=');
         } else {
             // EN CASO DE FALSE NOS REDIRIGE AL LOGIN CON EL ERR 1
             header('Location:../view/login.php?err=2');

@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="nav"> 
-        <a class='atras' href='./zonaRestaurante.php?tipo_espacio=Terraza'>Atrás</a>
+        <a class='atras' href='./zonaRestaurante.php?tipo_espacio=Terraza&filtro_fecha='>Atrás</a>
         <!-- CONTROL DE SESIONES Y BOTONES -->
         <?php
             require_once '../controller/sessionController.php';

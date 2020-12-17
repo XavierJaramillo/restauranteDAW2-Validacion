@@ -10,7 +10,7 @@
 <body>
 
     <div class="nav"> 
-    <a class='atras' href='./zonaRestaurante.php?tipo_espacio=Terraza'>Atrás</a>
+    <a class='atras' href='./zonaRestaurante.php?tipo_espacio=Terraza&filtro_fecha='>Atrás</a>
         <!-- CONTROL DE SESIONES Y BOTONES -->
         <?php
             require_once '../controller/sessionController.php';
@@ -26,6 +26,10 @@
                     echo "<li> <a href='./index.admin.php'>Admin</a> </li>";
                 }
             ?>
+
+            <li>
+                <a href='./historicoReservas.php'>Reservas</a>
+            </li>
             
             <li>
                 <label for="tipo_espacio">Filtro espacio:</label>
@@ -49,9 +53,8 @@
     require_once '../model/camareroDAO.php';
     $camareroDAO = new camareroDAO();
 
-    echo "<table id='tablaCamareros' style='border: 1px solid black'>";
+    echo "<table id='tablaCamareros'>";
     echo "<tr>";
-    echo "<form action='index.admin.php' method='POST'>";
     echo "<th colspan='2'><a class='m' href='../view/añadirCamarero.php'><i class='material-icons'>add_circle_outline</i></a></th>";
     echo "<th>Nombre trabajador</th>";
     echo "<th>Contraseña</th>";

@@ -33,7 +33,7 @@ class MesaDAO {
                 $nombre_comensal = "ClienteDefault";
             }
             $url = "../view/zonaRestaurante.php?tipo_espacio={$espacio}";
-            $urlErr = "../view/paginaError.php?id={$id_mesa}&accion=reservar";
+            $urlErr = "../view/paginaError.php?id={$id_mesa}&accion=reservar&tipo_espacio={$espacio}";
             $id_camarero = $_SESSION['camarero']->getId_camarero();
 
             $query="INSERT INTO `reserva` (`dia`, `franja`, `id_mesa`, `nombre_comensal`, `num_comensales`, `id_camarero`) VALUES (?, ?, ?, ?, ?, ?);";
@@ -71,7 +71,7 @@ class MesaDAO {
             $id_mesa = $_REQUEST['id_mesa'];
             $espacio = $_REQUEST['tipo_espacio'];
             $url = "../view/zonaRestaurante.php?tipo_espacio={$espacio}";
-            $urlErr = "../view/paginaError.php?id={$id_mesa}&accion=modificar";
+            $urlErr = "../view/paginaError.php?id={$id_mesa}&accion=modificar&tipo_espacio={$espacio}";
 
             $query="UPDATE mesas SET mesas.disp_mesa = 'Reparacion' WHERE id_mesa = ?;";
             $sentencia=$this->pdo->prepare($query);
@@ -159,7 +159,7 @@ class MesaDAO {
                     if($mesa['franja1'] != null && $mesa['franja2'] != null && $mesa['franja3'] != null && $mesa['franja4'] != null) {
                         echo "<a href='#'><img src='../img/mesaOcupada.png'></img></a>";
                     } else {
-                        echo "<a href='../view/editMesa.php?id_mesa={$idMesa}'><img src='../img/mesa.png'></img></a>";
+                        echo "<a href='../view/editMesa.php?id_mesa={$idMesa}&fecha={$_GET['filtro_fecha']}'><img src='../img/mesa.png'></img></a>";
                     }
                 } else {
                     echo "<a href='#'><img src='../img/mesaReparacion.png'></img></a>";

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/zonaRestaurante.css">
+    <link rel="stylesheet" type="text/css" href="../css/editTrabajador.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="../js/code.js"></script>
     <title>Modificar trabajador | Restaurante</title>
@@ -55,7 +56,8 @@
     ?>
     
     <div class="editar">
-        <form action="../view/index.admin.php" class="reservaForm" method="POST" onsubmit="return validacionPass(event)">
+        <form action="../view/index.admin.php" class="trabForm" method="POST" onsubmit="return validacionPass(event)">
+        <h1>Modificar trabajador: <?php echo $_REQUEST['id_camarero'] ?>.</h1>
         <input type="text" id="id_camarero_modificar" name="id_camarero_modificar" style="display:none" value="<?php echo $trabajador['id_camarero'];?>">
         <input type="text" id="mod" name="mod" style="display:none" value="true">
 
@@ -69,7 +71,7 @@
         <input type="password" id="contrasenyaVal" name="contrasenyaVal" required><br>
 
         <label for="rol">Cargo:</label><br>
-        <select id="rol" name="rol" style="margin:0;" required>
+        <select id="rol" name="rol" required>
             <?php
                 if($trabajador['rol'] == "0") {
                     echo "<option value='0'>Camarero</option>";
@@ -89,7 +91,7 @@
         
         <p id="msgErr"></p>
 
-        <input class="edit" type="submit" value="Actualizar">
+        <input class="actualizar" type="submit" value="Actualizar">
         </form> 
     </div>
     

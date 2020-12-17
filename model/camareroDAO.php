@@ -51,20 +51,20 @@ class camareroDAO {
         foreach($lista_camareros as $camarero) {
             $id=$camarero['id_camarero'];
             echo "<tr>";
-            echo "<td style='border:1px solid black'><a class='e' href='../view/modificarCamarero.php?id_camarero=$id'><span class='material-icons'>edit</span></a></th>";
+            echo "<td style='text-align:center'><a class='e' href='../view/modificarCamarero.php?id_camarero=$id'><span class='material-icons'>edit</span></a></td>";
             if($camarero['estado'] == 0) {
-                echo "<td style='border:1px solid black'><a class='w' href='../view/index.admin.php?baja=t&id_camarero=$id' OnClick='return confirm(`¿Estás seguro?`);'><span class='material-icons'>work</span></a></th>";
+                echo "<td style='text-align:center'><a class='w' href='../view/index.admin.php?baja=t&id_camarero=$id' OnClick='return confirm(`¿Estás seguro?`);'><span class='material-icons'>work</span></a></td>";
             } else {
-                echo "<td style='border:1px solid black'><a class='w' href='../view/index.admin.php?baja=f&id_camarero=$id' OnClick='return confirm(`¿Estás seguro?`);'><span class='material-icons'>work_off</span></a></th>";
+                echo "<td style='text-align:center'><a class='w' href='../view/index.admin.php?baja=f&id_camarero=$id' OnClick='return confirm(`¿Estás seguro?`);'><span class='material-icons'>work_off</span></a></td>";
             }
-            echo "<td style='border:1px solid black'>{$camarero['nombre_camarero']}</th>";
-            echo "<td style='border:1px solid black'>{$camarero['pass_camarero']}</th>";
+            echo "<td>{$camarero['nombre_camarero']}</td>";
+            echo "<td>{$camarero['pass_camarero']}</td>";
             if($camarero['rol'] == 0) {
-                echo "<td style='border:1px solid black'>Camarero</th>";
+                echo "<td>Camarero</th>";
             } else if ($camarero['rol'] == 1) {
-                echo "<td style='border:1px solid black'>Mantenimiento</th>";
+                echo "<td>Mantenimiento</td>";
             } else {
-                echo "<td style='border:1px solid black'>Administrador</th>";
+                echo "<td>Administrador</td>";
             }
             echo "</tr>";
         }

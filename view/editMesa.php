@@ -11,14 +11,53 @@
 <body>
     <div class="nav"> 
         <!-- CONTROL DE SESIONES Y BOTONES -->
-        <a class='atras' href='./zonaRestaurante.php?tipo_espacio=Terraza'>Atrás</a>
+        <a class='atras' href='./zonaRestaurante.php?tipo_espacio=Terraza&filtro_fecha='>Atrás</a>
         <?php
         require_once '../controller/sessionController.php';
         ?>
     </div>
+
+    <div class="subnav">
+        <!-- SUBNAV CON LINK A LOS DIFERENTES ESPACIOS -->
+        <form class="filtro" action="./zonaRestaurante.php" method="GET">
+        <ul>
+            <?php
+                if($_SESSION['camarero']->getRol() == 2) {
+                    echo "<li> <a href='./index.admin.php'>Admin</a> </li>";
+                }
+            ?>
+
+            <li>
+                <a href='./historicoReservas.php'>Reservas</a>
+            </li>
+            
+            <li>
+                <label for="tipo_espacio">Filtro espacio:</label>
+                <select id="tipo_espacio" name="tipo_espacio" style="margin:0;">
+                    <option value='Terraza'>Terraza</option>
+                    <option value='Comedor'>Comedor</option>
+                    <option value='VIPs'>VIPs</option>
+                </select>
+            </li>
+
+            <li>
+                <label>Filtro fecha:</label><input type="date" name="filtro_fecha" id="filtro_fecha">
+                <input type="submit" value="Enviar">
+            </li>
+            
+        </ul>
+    </form>
+    </div>
     
     <?php
         include_once '../model/mesaDAO.php';
+        //Recogemos la fecha
+        if(!empty($_GET['fecha'])) {
+            $fecha = $_GET['fecha'];
+        } else {
+            $fecha = Date('Y-m-d');
+        }
+
         // INSTANCIAMOS LA CLASE MESADAO PARA PODER USAR SUS METODOS
         $mDAO = new MesaDAO();
         $pdo = $mDAO->getPDO();
@@ -47,7 +86,7 @@
         <input type="text" id="tipo_espacio" name="tipo_espacio" value="<?php echo $mesa['tipo_espacio'];?>" readonly><br>
 
         <label for="dia">Día:</label><br>
-        <input type="date" name="dia" id="dia" min="<?php echo date('Y-m-d') ?>"><br>
+        <input type="date" name="dia" id="dia" value="<?php echo $fecha ?>" min="<?php echo date('Y-m-d') ?>"><br>
 
         <label for="hora">Franja horaria:</label><br>
         <select name="hora" id="hora">
