@@ -19,9 +19,9 @@
             <?php
                 if(isset($_GET['err'])) {
                     if ($_GET['err']==1) {
-                        echo "<p style='color:red'>Trabajador inexistente.</p>";
+                        echo "<br><p style='color:red'>Trabajador inexistente.</p><br>";
                     } else if ($_GET['err']==2) {
-                        echo "<p style='color:red'>Este trabajador esta de baja.</p>";
+                        echo "<br><p style='color:red'>Este trabajador esta de baja.</p><br>";
                     }
                 }
             ?>

@@ -24,7 +24,7 @@ function validacionCapacidad() {
     var inputC = document.getElementById('capacidad_mesa');
 
     if (c < 0 || c > cMax) {
-        msg.innerHTML = "La capacidad actual no puede ser mayor que la capacidad máxima!";
+        msg.innerHTML = "<br>La capacidad actual no puede ser mayor<br> que la capacidad máxima!<br>";
         inputC.style.borderColor = "red";
         return false;
     } else {
@@ -54,7 +54,7 @@ function validarFranja() {
     if (diaFinal == diaActual) {
         if (horaActual > horaFranja) {
             franjaInput.style.borderColor = "red";
-            msg.innerHTML = "La hora es incorrecta!";
+            msg.innerHTML = "<br>La hora es incorrecta!<br>";
             return false;
         } else if (horaActual < horaFranja) {
             franjaInput.style.borderColor = "transparent";
@@ -120,7 +120,7 @@ function validacionPass(e) {
         pass.style.borderColor = "transparent";
         passValidada.style.borderColor = "transparent";
     } else {
-        msg.innerHTML = "Las contraseñas deben ser iguales.";
+        msg.innerHTML = "<br>Las contraseñas deben ser iguales.<br>";
         pass.style.borderColor = "red";
         passValidada.style.borderColor = "red";
     }
