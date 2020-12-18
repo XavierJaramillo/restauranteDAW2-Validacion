@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2020 a las 18:59:45
+-- Tiempo de generación: 18-12-2020 a las 18:29:06
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.5
 
@@ -42,14 +42,10 @@ CREATE TABLE `camareros` (
 --
 
 INSERT INTO `camareros` (`id_camarero`, `nombre_camarero`, `pass_camarero`, `rol`, `estado`) VALUES
-(1, 'Xavi', '81dc9bdb52d04dc20036dbd8313ed055', '0', '0'),
-(2, 'Pepe', '81dc9bdb52d04dc20036dbd8313ed055', '2', '0'),
-(3, 'Alberto', '81dc9bdb52d04dc20036dbd8313ed055', '0', '0'),
-(4, 'Sergio', '81dc9bdb52d04dc20036dbd8313ed055', '0', '0'),
-(5, 'Ronaldiño', '81dc9bdb52d04dc20036dbd8313ed055', '1', '1'),
-(13, 'Admin', '21232f297a57a5a743894a0e4a801fc3', '2', '0'),
-(14, 'David', '81dc9bdb52d04dc20036dbd8313ed055', '1', '0'),
-(17, 'Carlos', '81dc9bdb52d04dc20036dbd8313ed055', '0', '0');
+(1, 'Sergio', '81dc9bdb52d04dc20036dbd8313ed055', '0', '0'),
+(2, 'Pepe', '81dc9bdb52d04dc20036dbd8313ed055', '1', '0'),
+(3, 'Xavier', '81dc9bdb52d04dc20036dbd8313ed055', '2', '0'),
+(4, 'Alberto', '81dc9bdb52d04dc20036dbd8313ed055', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -132,25 +128,7 @@ CREATE TABLE `reserva` (
 --
 
 INSERT INTO `reserva` (`id_reserva`, `dia`, `franja`, `id_mesa`, `nombre_comensal`, `num_comensales`, `id_camarero`) VALUES
-(1, '2020-12-14', '13:00h-14:00h', 5, 'Alberto', 2, 1),
-(2, '2020-12-14', '14:00h-15:00h', 5, 'Xavi', 2, 1),
-(3, '2020-12-14', '13:00h-14:00h', 6, 'Ejemplo', 2, 1),
-(4, '2020-12-14', '13:00h-14:00h', 4, 'Prueba', 3, 2),
-(5, '2020-12-14', '14:00h-15:00h', 4, 'Prueba2', 2, 2),
-(6, '2020-12-14', '21:00h-22:00h', 4, 'Prueba3', 1, 2),
-(7, '2020-12-14', '22:00h-23:00h', 4, 'Prueba4', 1, 2),
-(8, '2020-12-14', '22:00h-23:00h', 5, 'Vamos', 1, 2),
-(16, '2020-12-15', '13:00h-14:00h', 6, 'Verjano', 1, 2),
-(18, '2020-12-15', '14:00h-15:00h', 6, 'Carlos', 1, 2),
-(19, '2020-12-15', '21:00h-22:00h', 6, 'David', 1, 2),
-(20, '2020-12-15', '22:00h-23:00h', 6, 'Dani', 1, 2),
-(21, '2020-12-15', '13:00h-14:00h', 10, 'PruebaD', 1, 2),
-(26, '2020-12-17', '14:00h-15:00h', 10, 'Buendia', 2, 2),
-(32, '2020-12-15', '22:00h-23:00h', 1, 'RealSquad', 4, 4),
-(45, '2020-12-16', '13:00h-14:00h', 6, 'adsfasdf', 3, 4),
-(46, '2020-12-16', '22:00h-23:00h', 6, 'Pruebaaaaaa', 2, 4),
-(47, '2020-12-16', '21:00h-22:00h', 6, 'Prueba', 3, 4),
-(49, '2020-12-18', '13:00h-14:00h', 6, 'Ejemplo', 3, 4);
+(1, '2020-12-22', '21:00h-22:00h', 6, 'Jaramillo', 3, 2);
 
 --
 -- Índices para tablas volcadas

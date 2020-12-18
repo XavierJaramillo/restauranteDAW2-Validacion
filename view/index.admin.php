@@ -29,7 +29,7 @@
             ?>
 
             <li>
-                <a href='./historicoReservas.php?tipo_espacio=<?php echo $_REQUEST['tipo_espacio'] ?>'>Reservas</a>
+                <a href='./historicoReservas.php?tipo_espacio=Terraza'>Reservas</a>
             </li>
             
             <li>
