@@ -103,7 +103,7 @@ class MesaDAO {
             if(!empty($_GET['filtro_fecha'])) {
                 $fecha = $_GET['filtro_fecha'];
             } else {
-                $fecha = Date('y-m-d');
+                $fecha = Date('Y-m-d');
             }
 
             $query = "SELECT m.*, qry.dia, qry.franja1, qry.franja2, qry.franja3, qry.franja4 
@@ -138,7 +138,7 @@ class MesaDAO {
                 echo "<td>";
                 if($estado == "Disponible") {
                     echo "<div class='botones'>"; 
-                    echo "<span class='material-icons bWhite' onmouseover='displayInfo({$index})' onmouseout='quitInfo({$index})'>info</span>";
+                    echo "<span class='material-icons bWhite' onmouseover='displayInfo({$index})'>info</span>";
                     if($rol_user == 1 || $rol_user == 2) { 
                         echo "<a class='bWhite' href='./zonaRestaurante.php?id_mesa={$idMesa}&habilitar=f&tipo_espacio={$tipoEspacio}&filtro_fecha='>";
                         echo "<span class='material-icons'>lock</span>";
@@ -166,7 +166,7 @@ class MesaDAO {
                 }
                 echo "<p>Nº mesa: $idMesa</p>";
                 if($estado == "Disponible") {
-                    $this->imprimirInfo($mesa, $index);
+                    $this->imprimirInfo($mesa, $index, $fecha, $tipoEspacio, $idMesa);
                 }
                 echo "<p>Capacidad máxima: {$mesa['capacidad_max']} personas</p>";
                 echo "</td>";
@@ -180,25 +180,26 @@ class MesaDAO {
         }   
     }
 
-    public function imprimirInfo($mesa, $index) {
-        echo "<div class='info' id='caja$index'>";
+    public function imprimirInfo($mesa, $index, $fecha, $tipoEspacio, $idMesa) {
+        $urlBorrar = "./zonaRestaurante.php?tipo_espacio={$tipoEspacio}&filtro_fecha={$fecha}&idMesa={$idMesa}&franja=";
+        echo "<div class='info' id='caja{$index}' onmouseleave='quitInfo({$index})'>";
         if($mesa['franja1'] != NULL) {
-            echo "<p>13:00h-14:00h: Ocupada</p>";
+            echo "<p>13:00h-14:00h: Ocupada<a class='material-icons eReserva' href='{$urlBorrar}13:00h-14:00h'>delete</a></p>";
         } else {
             echo "<p>13:00h-14:00h: Libre</p>";
         }
         if($mesa['franja2'] != NULL) {
-            echo "<p>14:00h-15:00h: Ocupada</p>";
+            echo "<p>14:00h-15:00h: Ocupada<a class='material-icons eReserva' href='{$urlBorrar}14:00h-15:00h'>delete</a></p>";
         } else {
             echo "<p>14:00h-15:00h: Libre</p>";
         }
         if($mesa['franja3'] != NULL) {
-            echo "<p>21:00h-22:00h: Ocupada</p>";
+            echo "<p>21:00h-22:00h: Ocupada<a class='material-icons eReserva' href='{$urlBorrar}21:00h-22:00h'>delete</a></p>";
         } else {
             echo "<p>21:00h-22:00h: Libre</p>";
         }
         if($mesa['franja4'] != NULL) {
-            echo "<p>22:00h-23:00h: Ocupada</p>";
+            echo "<p>22:00h-23:00h: Ocupada<a class='material-icons eReserva' href='{$urlBorrar}22:00h-23:00h'>delete</a></p>";
         } else {
             echo "<p>22:00h-23:00h: Libre</p>";
         }

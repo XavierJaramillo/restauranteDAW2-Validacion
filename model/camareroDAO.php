@@ -78,7 +78,7 @@ class camareroDAO {
             $pass=md5($_POST['contrasenya']);
             $rol=$_POST['rol'];
             $urlErr = "../view/paginaError.php?accion=añadir&nombre=".$nombre;
-        
+
             // MIRAMOS SI EN LA TABLA NOTAS HAY ALGUNA NOTA CON LA ID DEL camareros
             $query = "INSERT INTO `camareros` (`nombre_camarero`, `pass_camarero`, `rol`) VALUES (?, ?, ?)";
             $sentencia=$this->pdo->prepare($query);
@@ -86,7 +86,7 @@ class camareroDAO {
             $sentencia->bindParam(2,$pass);
             $sentencia->bindParam(3,$rol);
             $sentencia->execute();
-            
+            header('Location: ../view/index.admin.php');
         } catch (Exception $e) {
             echo $e;
             header('Location: '.$urlErr);

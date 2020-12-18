@@ -49,7 +49,16 @@
             </li>
 
             <li>
-                <label>Fecha </label><input type="date" name="filtro_fecha" id="filtro_fecha">
+                <label>Fecha </label>
+                <input type="date" name="filtro_fecha" id="filtro_fecha" 
+                    value="<?php 
+                        if(!empty($_GET['filtro_fecha'])) {
+                            $fecha = $_GET['filtro_fecha'];
+                        } else {
+                            $fecha = Date('Y-m-d');
+                        }
+                        echo $fecha 
+                    ?>">
                 <input type="submit" value="Buscar">
             </li>
             

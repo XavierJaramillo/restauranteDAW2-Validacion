@@ -223,3 +223,12 @@ body {
     border: 1px solid white;
     color: white;
 }
+
+
+/* BOTON ELIMINAR RESERVA */
+
+.eReserva {
+    text-decoration: none;
+    color: red;
+    vertical-align: sub;
+}

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/zonaRestaurante.css">
+    <link rel="stylesheet" type="text/css" href="../css/editTrabajador.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="../js/code.js"></script>
     <title>Añadir trabajador | Restaurante</title>
@@ -15,6 +16,7 @@
         <!-- CONTROL DE SESIONES Y BOTONES -->
         <?php
             require_once '../controller/sessionController.php';
+            require_once '../controller/adminController.php'
         ?>
     </div>
 
@@ -49,7 +51,16 @@
             </li>
 
             <li>
-                <label>Fecha </label><input type="date" name="filtro_fecha" id="filtro_fecha">
+                <label>Fecha </label>
+                <input type="date" name="filtro_fecha" id="filtro_fecha" 
+                value="<?php 
+                    if(!empty($_GET['filtro_fecha'])) {
+                        $fecha = $_GET['filtro_fecha'];
+                    } else {
+                        $fecha = Date('Y-m-d');
+                    }
+                    echo $fecha 
+                ?>">
                 <input type="submit" value="Buscar">
             </li>
             
@@ -66,7 +77,8 @@
     ?>
 
 <div class="editar">
-    <form action="../view/añadirCamarero.php" class="reservaForm" method="POST" onsubmit="return validacionPass(event)">
+    <form action="../view/añadirCamarero.php" class="trabForm" method="POST" onsubmit="return validacionPass(event)">
+        <h1>Añadir trabajador.</h1>
         <label for="nombre_camarero">Nombre:</label><br>
         <input type="text" id="nombre_camarero" name="nombre_camarero" required><br>
         
@@ -83,7 +95,7 @@
             <option value='2'>Administrador</option>
         </select>
         <p id="msgErr"></p>
-        <input class="edit" type="submit" value="Crear">
+        <input class="actualizar" type="submit" value="Crear">
     </form> 
     </div>
 

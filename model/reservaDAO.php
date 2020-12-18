@@ -32,6 +32,24 @@ class reservaDAO {
         return $lista_reservas;
     }
 
+    public function eliminarReserva() {
+        try {
+            //Recogemos el id de la reserva
+            $dia = $_GET['filtro_fecha'];
+            $franja = $_GET['franja'];
+            $idMesa = $_GET['idMesa'];
+    
+            $query = "DELETE FROM `reserva` WHERE `dia` = ? AND `franja` = ? AND `id_mesa` = ?";
+            $sentencia = $this->pdo->prepare($query);
+            $sentencia->bindParam(1, $dia);
+            $sentencia->bindParam(2, $franja);
+            $sentencia->bindParam(3, $idMesa);
+            $sentencia->execute();
+        } catch (Exception $e) {
+            echo $e;
+        }
+    }
+
 }
 
 ?>

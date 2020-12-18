@@ -46,7 +46,8 @@
                 </li>
 
                 <li>
-                    <label>Fecha </label><input type="date" name="filtro_fecha" id="filtro_fecha" 
+                    <label>Fecha </label>
+                    <input type="date" name="filtro_fecha" id="filtro_fecha" 
                     value="<?php 
                         if(!empty($_GET['filtro_fecha'])) {
                             $fecha = $_GET['filtro_fecha'];
@@ -64,9 +65,10 @@
         
         <?php
         require_once '../model/mesaDAO.php';
-
+        require_once '../model/reservaDAO.php';
         // INSTANCIAMOS LA CLASE MESADAO PARA PODER USAR SUS METODOS
         $mesaDAO = new MesaDAO();
+        $reservaDAO = new ReservaDAO();
 
         if(isset($_REQUEST['habilitar'])) {
             if($_REQUEST['habilitar'] == "t") {
@@ -84,6 +86,12 @@
             if(isset($_REQUEST['capacidad_mesa'])) {
                 $mesaDAO->crearReserva();
             }
+        }
+
+        // CONTROLAMOS SI LA VARIABLE ID ESTA INICIALIZADA POR METODO GET, PARA ASI LLAMAR AL METODO QUE
+        // ELIMINARÁ LA RESERVA ESPECIFICADA
+        if(isset($_REQUEST['idMesa'])) {
+            $reservaDAO->eliminarReserva();
         }
 
         echo "<table id='table' style='margin-left: auto;margin-right: auto;border-spacing: 55px'>";
