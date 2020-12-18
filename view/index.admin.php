@@ -14,6 +14,7 @@
         <!-- CONTROL DE SESIONES Y BOTONES -->
         <?php
             require_once '../controller/sessionController.php';
+            require_once '../controller/adminController.php'
         ?>
     </div>
 

@@ -5,7 +5,7 @@ class camareroDAO {
 
     // CONSTRUCTOR
     public function __construct() {
-        include_once '../db/connection.php';
+        include '../db/connection.php';
         $this->pdo=$pdo;
     }
 

@@ -32,7 +32,7 @@ class MesaDAO {
             } else {
                 $nombre_comensal = "ClienteDefault";
             }
-            $url = "../view/zonaRestaurante.php?tipo_espacio={$espacio}";
+            $url = "../view/zonaRestaurante.php?tipo_espacio={$espacio}&filtro_fecha=";
             $urlErr = "../view/paginaError.php?id={$id_mesa}&accion=reservar&tipo_espacio={$espacio}";
             $id_camarero = $_SESSION['camarero']->getId_camarero();
 
@@ -70,7 +70,7 @@ class MesaDAO {
             //Variables mesa
             $id_mesa = $_REQUEST['id_mesa'];
             $espacio = $_REQUEST['tipo_espacio'];
-            $url = "../view/zonaRestaurante.php?tipo_espacio={$espacio}";
+            $url = "../view/zonaRestaurante.php?tipo_espacio={$espacio}&filtro_fecha=";
             $urlErr = "../view/paginaError.php?id={$id_mesa}&accion=modificar&tipo_espacio={$espacio}";
 
             $query="UPDATE mesas SET mesas.disp_mesa = 'Reparacion' WHERE id_mesa = ?;";
@@ -140,7 +140,7 @@ class MesaDAO {
                     echo "<div class='botones'>"; 
                     echo "<span class='material-icons bWhite' onmouseover='displayInfo({$index})' onmouseout='quitInfo({$index})'>info</span>";
                     if($rol_user == 1 || $rol_user == 2) { 
-                        echo "<a class='bWhite' href='./zonaRestaurante.php?id_mesa={$idMesa}&habilitar=f&tipo_espacio={$tipoEspacio}'>";
+                        echo "<a class='bWhite' href='./zonaRestaurante.php?id_mesa={$idMesa}&habilitar=f&tipo_espacio={$tipoEspacio}&filtro_fecha='>";
                         echo "<span class='material-icons'>lock</span>";
                         echo "</a>";
                     }
@@ -148,7 +148,7 @@ class MesaDAO {
                 } else {                    
                     echo "<div class='botones'>"; 
                     if($rol_user == 1 || $rol_user == 2) { 
-                        echo "<a class='bWhite' href='./zonaRestaurante.php?id_mesa={$idMesa}&habilitar=t&tipo_espacio={$tipoEspacio}'>";
+                        echo "<a class='bWhite' href='./zonaRestaurante.php?id_mesa={$idMesa}&habilitar=t&tipo_espacio={$tipoEspacio}&filtro_fecha='>";
                         echo "<span class='material-icons'>lock_open</span>";
                         echo "</a>";
                     }
@@ -159,7 +159,7 @@ class MesaDAO {
                     if($mesa['franja1'] != null && $mesa['franja2'] != null && $mesa['franja3'] != null && $mesa['franja4'] != null) {
                         echo "<a href='#'><img src='../img/mesaOcupada.png'></img></a>";
                     } else {
-                        echo "<a href='../view/editMesa.php?tipo_espacio=$tipoEspacio&id_mesa={$idMesa}&fecha={$_GET['filtro_fecha']}'><img src='../img/mesa.png'></img></a>";
+                        echo "<a href='../view/editMesa.php?tipo_espacio=$tipoEspacio&id_mesa={$idMesa}&fecha={$fecha}'><img src='../img/mesa.png'></img></a>";
                     }
                 } else {
                     echo "<a href='#'><img src='../img/mesaReparacion.png'></img></a>";
