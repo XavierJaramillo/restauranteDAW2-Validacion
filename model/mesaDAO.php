@@ -138,10 +138,10 @@ class MesaDAO {
                 echo "<td>";
                 if($estado == "Disponible") {
                     echo "<div class='botones'>"; 
-                    echo "<span class='material-icons bWhite' onmouseover='displayInfo({$index})'>info</span>";
+                    echo "<span class='material-icons bWhite click lockIco' onclick='displayInfo({$index})'>info</span>";
                     if($rol_user == 1 || $rol_user == 2) { 
                         echo "<a class='bWhite' href='./zonaRestaurante.php?id_mesa={$idMesa}&habilitar=f&tipo_espacio={$tipoEspacio}&filtro_fecha='>";
-                        echo "<span class='material-icons'>lock</span>";
+                        echo "<span class='material-icons lockIco'>lock</span>";
                         echo "</a>";
                     }
                     echo "</div>";
@@ -149,7 +149,7 @@ class MesaDAO {
                     echo "<div class='botones'>"; 
                     if($rol_user == 1 || $rol_user == 2) { 
                         echo "<a class='bWhite' href='./zonaRestaurante.php?id_mesa={$idMesa}&habilitar=t&tipo_espacio={$tipoEspacio}&filtro_fecha='>";
-                        echo "<span class='material-icons'>lock_open</span>";
+                        echo "<span class='material-icons lockIco'>lock_open</span>";
                         echo "</a>";
                     }
                     echo "</div>";
