@@ -183,24 +183,24 @@ class MesaDAO {
     public function imprimirInfo($mesa, $index) {
         echo "<div class='info' id='caja$index'>";
         if($mesa['franja1'] != NULL) {
-            echo "<p>Franja 1: Ocupada</p>";
+            echo "<p>13:00h-14:00h: Ocupada</p>";
         } else {
-            echo "<p>Franja 1: Libre</p>";
+            echo "<p>13:00h-14:00h: Libre</p>";
         }
         if($mesa['franja2'] != NULL) {
-            echo "<p>Franja 2: Ocupada</p>";
+            echo "<p>14:00h-15:00h: Ocupada</p>";
         } else {
-            echo "<p>Franja 2: Libre</p>";
+            echo "<p>14:00h-15:00h: Libre</p>";
         }
         if($mesa['franja3'] != NULL) {
-            echo "<p>Franja 3: Ocupada</p>";
+            echo "<p>21:00h-22:00h: Ocupada</p>";
         } else {
-            echo "<p>Franja 3: Libre</p>";
+            echo "<p>21:00h-22:00h: Libre</p>";
         }
         if($mesa['franja4'] != NULL) {
-            echo "<p>Franja 4: Ocupada</p>";
+            echo "<p>22:00h-23:00h: Ocupada</p>";
         } else {
-            echo "<p>Franja 4: Libre</p>";
+            echo "<p>22:00h-23:00h: Libre</p>";
         }
         echo "</div>";
     }

@@ -23,7 +23,7 @@ class reservaDAO {
             echo "<td style='text-align: center'>{$reserva['dia']}</td>";
             echo "<td style='text-align: center'>{$reserva['franja']}</td>";
             echo "<td style='text-align: center'>{$reserva['id_mesa']}</td>";
-            echo "<td  style='text-align: center'>{$reserva['nombre_comensal']}</td>";
+            echo "<td style='text-align: center'>{$reserva['nombre_comensal']}</td>";
             echo "<td style='text-align: center'>{$reserva['num_comensales']}</td>";
             echo "<td style='text-align: center'>{$reserva['id_camarero']}</td>";
            
