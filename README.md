@@ -15,7 +15,7 @@ Administrador:
 La contraseña de todos los usuarios es: "1234".
 ------------------------------------
 
-Con esta aplicación web podemos gestionar las reservas en cada espacio y los usuarios, del restaurante: El Asturiano.
+Con esta aplicación web podemos gestionar el restaurante: El Asturiano.
 
 
 
