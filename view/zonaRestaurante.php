@@ -26,12 +26,12 @@
                 ?>
                 
                 <li>
-                    <a href='./historicoReservas.php'>Reservas</a>
+                    <a href='./historicoReservas.php?tipo_espacio=<?php echo $_REQUEST['tipo_espacio'] ?>'>Reservas</a>
                 </li>
 
                 <li>
                     <label for="tipo_espacio">Espacio </label>
-                    <select id="tipo_espacio" name="tipo_espacio" style="margin:0;">
+                    <select id="tipo_espacio" name="tipo_espacio">
                         <?php
                             require_once '../model/espacioDAO.php';
 

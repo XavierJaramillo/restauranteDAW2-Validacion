@@ -159,7 +159,7 @@ class MesaDAO {
                     if($mesa['franja1'] != null && $mesa['franja2'] != null && $mesa['franja3'] != null && $mesa['franja4'] != null) {
                         echo "<a href='#'><img src='../img/mesaOcupada.png'></img></a>";
                     } else {
-                        echo "<a href='../view/editMesa.php?id_mesa={$idMesa}&fecha={$_GET['filtro_fecha']}'><img src='../img/mesa.png'></img></a>";
+                        echo "<a href='../view/editMesa.php?tipo_espacio=$tipoEspacio&id_mesa={$idMesa}&fecha={$_GET['filtro_fecha']}'><img src='../img/mesa.png'></img></a>";
                     }
                 } else {
                     echo "<a href='#'><img src='../img/mesaReparacion.png'></img></a>";

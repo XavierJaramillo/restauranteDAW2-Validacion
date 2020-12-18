@@ -27,19 +27,30 @@
                     echo "<li> <a href='./index.admin.php'>Admin</a> </li>";
                 }
             ?>
+
+            <li>
+                <a href='./historicoReservas.php?tipo_espacio=<?php echo $_REQUEST['tipo_espacio'] ?>'>Reservas</a>
+            </li>
             
             <li>
-                <label for="tipo_espacio">Filtro espacio:</label>
-                <select id="tipo_espacio" name="tipo_espacio" style="margin:0;">
-                    <option value='Terraza'>Terraza</option>
-                    <option value='Comedor'>Comedor</option>
-                    <option value='VIPs'>VIPs</option>
+                <label for="tipo_espacio">Espacio </label>
+                <select id="tipo_espacio" name="tipo_espacio">
+                    <?php
+                        require_once '../model/espacioDAO.php';
+
+                        $espacioDAO = new espacioDAO();
+                        $listaEspacios = $espacioDAO->getEspacios();
+                        
+                        foreach ($listaEspacios as $espacio) {
+                                echo "<option value='{$espacio['tipo_espacio']}'>{$espacio['tipo_espacio']}</option>";
+                        }
+                    ?>
                 </select>
             </li>
 
             <li>
-                <label>Filtro fecha:</label><input type="date" name="filtro_fecha" id="filtro_fecha">
-                <input type="submit" value="Enviar">
+                <label>Fecha </label><input type="date" name="filtro_fecha" id="filtro_fecha">
+                <input type="submit" value="Buscar">
             </li>
             
         </ul>

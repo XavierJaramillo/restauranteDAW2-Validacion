@@ -27,7 +27,7 @@
                 ?>
                 
                 <li>
-                    <a href='./historicoReservas.php'>Reservas</a>
+                    <a href='./historicoReservas.php?tipo_espacio=<?php echo $_REQUEST['tipo_espacio'] ?>'>Reservas</a>
                 </li>
 
                 <li>
@@ -40,7 +40,7 @@
                             $listaEspacios = $espacioDAO->getEspacios();
                             
                             foreach ($listaEspacios as $espacio) {
-                                    echo "<option value='{$espacio['tipo_espacio']}'>{$espacio['tipo_espacio']}</option>";
+                                echo "<option value='{$espacio['tipo_espacio']}'>{$espacio['tipo_espacio']}</option>";
                             }
                         ?>
                     </select>
